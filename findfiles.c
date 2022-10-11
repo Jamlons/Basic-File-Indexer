@@ -23,8 +23,27 @@ int file_attributes(char *filename) {
   }
 }
 
-void real_file(char *filename) {
-  
+void read_file(char *filename) {
+  char *buf;
+  FILE *fp;
+  char *line = malloc(max_word_length * sizeof(char) + 1);
+  // Malloc failed
+  if (line == NULL) {
+    printf("Cannot allocate memory");
+    exit(EXIT_FAILURE);
+  }
+  fp = fopen(filename, "r");
+  // fopen failed
+  if (fp == NULL){
+   perror(progname);
+    exit(EXIT_FAILURE);
+  }
+  while (fgets(line, (sizeof(char) * 100), fp) != NULL {
+    buf = strtok (line, " ");
+    if (strlen(buf) <= max_word_length) {
+      // this is a word that can now be saved for index.
+    }
+  }
 }
 
 void list_directory(char *dirname) {
@@ -40,9 +59,13 @@ void list_directory(char *dirname) {
      int file_type = file_attributes(dp->d_name);
      if (file_type = 1) {
        printf("\n%s\n", dp->d_name);
+       read_file(dp->d_name);
      }
-     else
-       printf("\n%s\n", "File is a directory);
+     else {
+       printf("\n%s\n", "This is a directory");
+       // Create a child process giving them the directory name
+       // And going through list_directory again
+     }
   }
   closedir(dirp);
 }

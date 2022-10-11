@@ -1,6 +1,6 @@
 #include "trove.h"
 
-void create_trove(char *filename) {
+void create_trove(char *trovename) {
   FILE *fp;
   fp = fopen(filename, "w");
   if (fp == NULL) {

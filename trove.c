@@ -17,23 +17,39 @@ main(int argc, char *argv[]) {
     fs->file_name = strdup(default_file_name);
     
     opterr = 0;
+    bool bflag = false;
+    bool rflag = false;
+    bool uflag = false;
     while ((opt = getopt(argc, argv, OPTLIST)) != -1) {
+        // Accept file name
         if (opt == 'f') {
             fs->file_name = strdup(optarg);
         }
+        // Accept build option
         else if (opt == 'b') {
-            create_file(fs->file_name);
-            // Add info from file list to created file
+            bflag = true;
         }
+        // Accept remove option
         else if (opt == 'r') {
-            //Remove file info from trove_file
+            rflag = true;
         }
+        // Accept update option
         else if (opt == 'u') {
-            // Update info from trove_file
+            uflag = true;
         }
+        // Accept word length
         else if (opt == 'l') {
             // Grab word length
+            word_length = atoi(optarg);
+        }
+        // If no build, update or remove option selected - search for word.
+        else if (bflag && rflag && uflag) {
+            fs-> word = strdup(optarg);
+            // Search for this word.
+        }
+        else {
+            // Add filelist info to file
         }
     }
-    for (; optind < argc;
 }
+

@@ -9,9 +9,6 @@ extern void create_trove(char *trovename);
 
 extern int max_word_length;
 
-int default_word_length = 4;
-
-
 struct file_storage {
     char *file_name;
     char *word;

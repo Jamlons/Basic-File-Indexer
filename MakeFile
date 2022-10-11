@@ -2,9 +2,16 @@
 
 PROJECT = trove
 HEADERS = $(PROJECT).h
-OBJ = trove.o 
+OBJ = trove.o global.o findfiles.o filenames.o indexing.o remove.o trovefile.o update.o words.o
 
 C11    = cc -std=c11
 CFLAGS = -Wall -Werror
 
-trove : 
+$(PROJECT) : $(OBJ)
+  $(C11) $(CFLAGS) -o $(PROJECT) $(OBJ) -lm
+
+%.o : %.c $(HEADERS)
+  $(C11) $(CFLAGS) -c $<
+  
+clean:
+  rm -f $(PROJECT) $(OBJ)

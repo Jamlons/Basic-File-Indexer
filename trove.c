@@ -9,17 +9,25 @@
 char *progname;
 #define OPTLIST "f:brul:"
 
-main(int argc, char *argv[]) {
+void usage(bool flag) {
+    if (flag) {
+        printf("\n%s" "You have entered the wrong invoking in the cmd.");
+        printf("\n%s\n%s\n%s" "Please make sure you are either using" "./trove  [-f trovefile]  word"
+               or "./trove  [-f trovefile]  [-b  |  -r  |  -u]  [-l length]  filelist");
+        main();
+    }
+}
+
+void main(int argc, char *argv[]) {
     struct file_storage *fs;
     int opt;
-    char *filename = NULL;
-    int value = DEFAULT_VALUE;
     fs->file_name = strdup(default_file_name);
     
-    opterr = 0;
     bool bflag = false;
     bool rflag = false;
     bool uflag = false;
+    
+    opterr = 0;
     while ((opt = getopt(argc, argv, OPTLIST)) != -1) {
         // Accept file name
         if (opt == 'f') {
@@ -39,17 +47,24 @@ main(int argc, char *argv[]) {
         }
         // Accept word length
         else if (opt == 'l') {
-            // Grab word length
             word_length = atoi(optarg);
         }
-        // If no build, update or remove option selected - search for word.
+        // If no commands are given, this is the word.
         else if (bflag && rflag && uflag) {
-            fs-> word = strdup(optarg);
-            // Search for this word.
+            fs->word = strdup(optarg);
         }
+        // If one command is given, this is the filelist
+        else if (bflag || rflag || uflag){
+            //Loop to add each string to file list
+        }
+        // Whoops from argument
         else {
-            // Add filelist info to file
+            argc = -1;
         }
     }
+    if (argc <= 0) {
+        usage(1);
+    }
+    // Run all code here
 }
 

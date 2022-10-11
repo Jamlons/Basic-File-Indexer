@@ -1,0 +1,10 @@
+# A Makefile for our project
+
+PROJECT = trove
+HEADERS = $(PROJECT).h
+OBJ = trove.o 
+
+C11    = cc -std=c11
+CFLAGS = -Wall -Werror
+
+trove : 

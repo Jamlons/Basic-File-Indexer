@@ -24,6 +24,7 @@ int file_attributes(char *filename) {
 }
 
 void read_file(char *filename) {
+  char delimiter[] = " \t\r\n\v\f-_=+";
   char *buf;
   FILE *fp;
   char *line = malloc(max_word_length * sizeof(char) + 1);
@@ -38,10 +39,13 @@ void read_file(char *filename) {
    perror(progname);
     exit(EXIT_FAILURE);
   }
-  while (fgets(line, (sizeof(char) * 100), fp) != NULL {
-    buf = strtok (line, " ");
-    if (strlen(buf) <= max_word_length) {
+  while (fgets(line, sizeof line, fp) != NULL {
+    buf = strtok(line, delimit);
+    while (buf != NULL) {
+      if (strlen(buf) <= max_word_length) {
       // this is a word that can now be saved for index.
+      }
+      buf = strtok(NULL, delimit);
     }
   }
 }

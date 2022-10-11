@@ -5,6 +5,7 @@ extern char *default_file_name;
 
 extern void file_attributes(char *filename);
 extern void read_file(char *filename);
+extern void create_trove(char *trovename);
 
 extern int max_word_length;
 

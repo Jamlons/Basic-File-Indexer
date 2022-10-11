@@ -1,7 +1,7 @@
 #ifndef TROVE_H
 #define TROVE_H
 
-#define DEFAULT_FILE_NAME = /tmp/trove
+extern char *default_file_name;
 
 extern void file_attributes(char *filename);
 extern void read_file(char *filename);

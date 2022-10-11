@@ -50,7 +50,7 @@ void main(int argc, char *argv[]) {
             word_length = atoi(optarg);
         }
         // If no commands are given, this is the word.
-        else if (bflag && rflag && uflag) {
+        else if (bflag || rflag || uflag) {
             fs->word = strdup(optarg);
         }
         // If one command is given, this is the filelist

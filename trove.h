@@ -13,3 +13,5 @@ struct file_storage {
     char *file_name;
     char *word;
 };
+
+struct file_storage *getstorage(void);

@@ -22,6 +22,7 @@ void main(int argc, char *argv[]) {
     struct file_storage *fs;
     int opt;
     fs->file_name = strdup(default_file_name);
+    max_word_length = 4;
     
     bool bflag = false;
     bool rflag = false;
@@ -47,7 +48,7 @@ void main(int argc, char *argv[]) {
         }
         // Accept word length
         else if (opt == 'l') {
-            word_length = atoi(optarg);
+            max_word_length = atoi(optarg);
         }
         // If no commands are given, this is the word.
         else if (bflag || rflag || uflag) {

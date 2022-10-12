@@ -23,33 +23,6 @@ int file_attributes(char *filename) {
   }
 }
 
-void read_file(char *filename) {
-  char delimiter[] = " \t\r\n\v\f-_=+";
-  char *buf;
-  FILE *fp;
-  char *line = malloc(max_word_length * sizeof(char) + 1);
-  // Malloc failed
-  if (line == NULL) {
-    printf("Cannot allocate memory");
-    exit(EXIT_FAILURE);
-  }
-  fp = fopen(filename, "r");
-  // fopen failed
-  if (fp == NULL){
-   perror(progname);
-    exit(EXIT_FAILURE);
-  }
-  while (fgets(line, sizeof line, fp) != NULL {
-    buf = strtok(line, delimit);
-    while (buf != NULL) {
-      if (strlen(buf) <= max_word_length) {
-      // this is a word that can now be saved for index.
-      }
-      buf = strtok(NULL, delimit);
-    }
-  }
-}
-
 void list_directory(char *dirname) {
   DIR *dirp;
   struct dirent *dp;

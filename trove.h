@@ -9,9 +9,9 @@ extern void create_trove(char *trovename);
 
 extern int min_word_length;
 
-struct file_storage {
+typedef struct {
     char *file_name;
     char *word;
-};
+}file_structure;
 
-struct file_storage *getstorage(void);
+extern file_structure globalStruct;

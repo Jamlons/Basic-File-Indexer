@@ -13,7 +13,7 @@ void usage(bool flag) {
     if (flag) {
         printf("\n%s" "You have entered the wrong invoking in the cmd.");
         printf("\n%s\n%s\n%s" "Please make sure you are either using" "./trove  [-f trovefile]  word"
-               or "./trove  [-f trovefile]  [-b  |  -r  |  -u]  [-l length]  filelist");
+               "or" "./trove  [-f trovefile]  [-b  |  -r  |  -u]  [-l length]  filelist");
         main();
     }
 }
@@ -58,7 +58,7 @@ void main(int argc, char *argv[]) {
         else if (bflag || rflag || uflag){
             //Loop to add each string to file list
         }
-        // Whoops from argument
+        // Whoops unknown argument
         else {
             argc = -1;
         }

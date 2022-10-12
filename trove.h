@@ -1,6 +1,7 @@
 #ifndef TROVE_H
 #define TROVE_H
 
+#define BUFSIZE = 100000;
 extern char *default_file_name;
 
 extern void file_attributes(char *filename);

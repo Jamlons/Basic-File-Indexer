@@ -1,3 +1,4 @@
+//FUNCTIONS FOR EDITING / READING / WRITING TO TROVE FILES
 #include "trove.h"
 #include <stdio.h>
 #include <stdbool.h>

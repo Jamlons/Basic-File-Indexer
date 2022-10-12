@@ -1,3 +1,4 @@
+//FUNCTION FOR FINDING THE FILES WITHIN DIRECTORIES
 #include "trove.h"
 #include <stdio.h>
 #include <stdlib.h>

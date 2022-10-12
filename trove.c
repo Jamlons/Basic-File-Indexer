@@ -69,17 +69,19 @@ void main(int argc, char *argv[]) {
     // Run all code here
     
     if (bflag) {
-        create_trove(fs->file_name);  
+        FILE *build_pointer = create_trove(fs->file_name);
+        
         // Add info to created trove file
+        fclose(build_pointer);
     }
     else if (rflag) {
-        FILE *remove_pointer = open_trove(fs->file_name);
+        FILE *remove_pointer = read_trove(fs->file_name);
         // 
         fclose(remove_pointer);
     // Remove info from trove file   
     }
     else if (uflag) {
-        FILE *update_pointer = open_trove(fs->file_name);
+        FILE *update_pointer = read_trove(fs->file_name);
     // Update info from trove file
     }
     else {

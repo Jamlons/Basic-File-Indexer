@@ -4,6 +4,8 @@
 //To remove lines from files - must duplicate the text file without said lines in it
 void remove_files(FILE *fp) {
   // If provided file isn't valid
+  char *buf;
+  char *bufsizing;
   if (fp == NULL) {
    printf("Unable to open file given");
     perror(progname);
@@ -16,7 +18,7 @@ void remove_files(FILE *fp) {
     perror(progname);
     exit(EXIT_FAILURE);
   }
-  while (!feof(fp)) {
-  
+  while (fgets(bufsizing, sizeof bufsizing, fp) != NULL) {
+    
   }
 }

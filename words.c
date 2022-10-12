@@ -1,3 +1,4 @@
+//FUNCTIONS FOR FINDING WORDS WITHIN FILES
 #include "trove.h"
 
 void read_file(char *filename) {

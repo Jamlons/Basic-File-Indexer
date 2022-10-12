@@ -5,3 +5,7 @@
 #include  <sys/param.h>
 #include  <dirent.h>
 #include  <unistd.h>
+
+void add_file_info(FILE *fp) {
+   char *file_name = 
+}

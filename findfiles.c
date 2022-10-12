@@ -6,9 +6,12 @@
 #include <time.h>
 #include <unistd.h>
 
+// To see if file is a regular file or a directory
+// Returns 1 if reg, returns 2 if dir
 int file_attributes(char *filename) {
   struct stat stat_buffer;
   
+  // Failed to open stat buffer for the given filename
   if(stat(filename, &stat_buffer) != 0) {
     perror(progname);
     exit(EXIT_FAILURE);
@@ -23,6 +26,7 @@ int file_attributes(char *filename) {
   }
 }
 
+// Lists every file or directory within a given directory
 void list_directory(char *dirname) {
   DIR *dirp;
   struct dirent *dp;

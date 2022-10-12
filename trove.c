@@ -14,7 +14,7 @@ void usage(bool flag) {
         printf("\n%s" "You have entered the wrong invoking in the cmd.");
         printf("\n%s\n%s\n%s" "Please make sure you are either using" "./trove  [-f trovefile]  word"
                "or" "./trove  [-f trovefile]  [-b  |  -r  |  -u]  [-l length]  filelist");
-        main();
+        exit(EXIT_FAILURE);
     }
 }
 

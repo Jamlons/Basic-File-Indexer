@@ -22,11 +22,8 @@ void main(int argc, char *argv[]) {
     struct file_storage *fs;
     int opt;
     fs->file_name = strdup(default_file_name);
-    max_word_length = 4;
-    
-    bool bflag = false;
-    bool rflag = false;
-    bool uflag = false;
+    max_word_length = 4;  
+    bool bflag, rflag, uflag = false;
     
     opterr = 0;
     while ((opt = getopt(argc, argv, OPTLIST)) != -1) {

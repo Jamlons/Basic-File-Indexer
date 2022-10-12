@@ -25,7 +25,7 @@ void main(int argc, char *argv[]) {
     max_word_length = 4;  
     bool bflag, rflag, uflag = false;
     
-    opterr = 0;
+    int opterr = 0;
     while ((opt = getopt(argc, argv, OPTLIST)) != -1) {
         // Accept file name
         if (opt == 'f') {
@@ -48,12 +48,30 @@ void main(int argc, char *argv[]) {
             max_word_length = atoi(optarg);
         }
         // If no commands are given, this is the word.
-        else if (bflag || rflag || uflag) {
+        else if (!bflag && !rflag && !uflag) {
             fs->word = strdup(optarg);
+            // Search for word
+            // If two words are given error out.
         }
         // If one command is given, this is the filelist
-        else if (bflag || rflag || uflag){
+        else if (bflag || rflag || uflag) {
             //Loop to add each string to file list
+            if (bflag) {
+                FILE *build_pointer = create_trove(fs->file_name);
+                add_file_info(build_pointer);
+                // Add info to created trove file
+                fclose(build_pointer);
+            }
+            else if (rflag) {
+                FILE *remove_pointer = read_trove(fs->file_name);
+                // 
+                fclose(remove_pointer);
+            // Remove info from trove file   
+            }
+            else if (uflag) {
+              FILE *update_pointer = read_trove(fs->file_name);
+                // Update info from trove file
+            }
         }
         // Whoops unknown argument
         else {
@@ -62,29 +80,6 @@ void main(int argc, char *argv[]) {
     }
     if (argc <= 0) {
         usage(1);
-    }
-    // Run all code here
-    
-    if (bflag) {
-        FILE *build_pointer = create_trove(fs->file_name);
-        add_file_info(build_pointer);
-        // Add info to created trove file
-        fclose(build_pointer);
-    }
-    else if (rflag) {
-        FILE *remove_pointer = read_trove(fs->file_name);
-        // 
-        fclose(remove_pointer);
-    // Remove info from trove file   
-    }
-    else if (uflag) {
-        FILE *update_pointer = read_trove(fs->file_name);
-    // Update info from trove file
-    }
-    else {
-        FILE *read_pointer = read_trove(fs->file_name);
-    // Search for the word within given files   
-        fclose(read_pointer);
     }
 }
 

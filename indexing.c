@@ -1,3 +1,4 @@
+//FUNCTION FOR INDEXING FILE INFO
 #include "trove.h"
 #include  <stdio.h>
 #include  <sys/types.h>

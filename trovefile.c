@@ -11,9 +11,19 @@ void create_trove(char *trovename) {
   fclose(fp);
 }
 
-FILE *open_file(char *filename) {
+FILE *open_trove(char *filename) {
   FILE *fp;
   fp = fopen(filename, "r+");
+  if (fp == NULL) {
+    perror (progname);
+    exit(EXIT_FAILURE);
+  }
+  return fp;
+}
+
+FILE *read_trove(char *filename) {
+  FILE *fp;
+  fp = fopen(filename, "r");
   if (fp == NULL) {
     perror (progname);
     exit(EXIT_FAILURE);

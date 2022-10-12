@@ -70,7 +70,7 @@ void main(int argc, char *argv[]) {
     
     if (bflag) {
         FILE *build_pointer = create_trove(fs->file_name);
-        
+        add_file_info(build_pointer);
         // Add info to created trove file
         fclose(build_pointer);
     }

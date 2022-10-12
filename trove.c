@@ -67,5 +67,25 @@ void main(int argc, char *argv[]) {
         usage(1);
     }
     // Run all code here
+    
+    if (bflag) {
+        create_trove(fs->file_name);  
+        // Add info to created trove file
+    }
+    else if (rflag) {
+        FILE *remove_pointer = open_trove(fs->file_name);
+        // 
+        fclose(remove_pointer);
+    // Remove info from trove file   
+    }
+    else if (uflag) {
+        FILE *update_pointer = open_trove(fs->file_name);
+    // Update info from trove file
+    }
+    else {
+        FILE *read_pointer = read_trove(fs->file_name);
+    // Search for the word within given files   
+        fclose(read_pointer);
+    }
 }
 

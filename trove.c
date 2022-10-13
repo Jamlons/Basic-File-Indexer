@@ -71,6 +71,7 @@ int main(int argc, char *argv[]) {
         if (bflag || rflag || uflag) {
             // Add each filename to a list called filelist
             filelist[counter] = strdup(argv[optind]);
+            counter++;
         }
         else if (!bflag && !rflag && !uflag) {
             // If there are more than one word given

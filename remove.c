@@ -1,5 +1,6 @@
 //FUNCTION TO REMOVE FILE INFO FROM GIVEN TROVEFILE
 #include "trove.h"
+#include "file_edits.h"
 
 //To remove lines from files - must duplicate the text file without said lines in it
 void remove_files(FILE *fp, int counter, char *to_be_removed_file) {

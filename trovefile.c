@@ -15,6 +15,7 @@ FILE *create_trove(char *trovename) {
     exit(EXIT_FAILURE);
   }
   printf("File %s has been created", *trovename);
+  return fp;
 }
 
 FILE *append_trove(char *filename) {

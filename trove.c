@@ -104,6 +104,8 @@ int main(int argc, char *argv[]) {
             }
             else {
                 fs->word = argv[optind];
+                FILE *find_pointer = read_trove(fs->file_name);
+                find_names(&find_pointer);
             }
         }
     }

@@ -1,8 +1,9 @@
 //FUNCTION FOR FINDING THE GIVEN WORD WITHIN THE GIVEN TROVEFILE
 #include "trove.h"
 
-void find_names(FILE *fp) {
+int find_names(FILE *fp) {
   READ_FILE_STORAGE read_file_storage;
+  int amount_of_files_found = 0;
   char *buf;
   char *line = NULL;
   char *file_path;
@@ -15,9 +16,11 @@ void find_names(FILE *fp) {
       buf = strtok(NULL, ' ');
       if(!strcmp(read_file_storage.word, buf) {
         printf("%s\n", file_path);
+        amount_of_files_found++;
         break;
       }
     }  
   }
   close (line);
+  return amount_of_files_found;
 }

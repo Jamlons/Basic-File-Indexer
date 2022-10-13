@@ -83,7 +83,7 @@ int main(int argc, char *argv[]) {
             }
             // file is reg file
             else if (file_type == 2) {
-                add_file_path(%new_file_pointer, argv[optind]);
+                add_file_path(&new_file_pointer, argv[optind]);
                 read_file(argv[optind]);
             }
         }

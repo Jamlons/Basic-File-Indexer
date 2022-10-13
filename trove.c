@@ -12,22 +12,21 @@ char *progname;
 
 void usage(bool flag) {
     if (flag) {
-        printf("\n%s" "You have entered the wrong invoking in the cmd.");
-        printf("\n%s\n%s\n%s" "Please make sure you are either using" "./trove  [-f trovefile]  word"
-               "or" "./trove  [-f trovefile]  [-b  ||  -r  ||  -u]  [-l length (positive integer)]  filelist");
+        printf("\nYou have entered the wrong invoking in the cmd.");
+        printf("\nPlease make sure you are either using\n./trove  [-f trovefile]  word\nor\n./trove  [-f trovefile]  [-b  ||  -r  ||  -u]  [-l length (positive integer)]  filelist");
         exit(EXIT_FAILURE);
     }
 }
 
 int main(int argc, char *argv[]) {
     int counter = 0;
-    READ_FILE_STORAGE read_file_storage;
+    READ_FILE_STRUCTURE read_file_storage;
     int opt;
     read_file_storage.file_name = strdup(default_file_name);
-    max_word_length = 4;  
+    int max_word_length = 4;  
     bool bflag, rflag, uflag = false;
     
-    int opterr = 0;
+    //int opterr = 0;
     while ((opt = getopt(argc, argv, OPTLIST)) != -1) {
         // Accept file name
         if (opt == 'f') {
@@ -95,7 +94,7 @@ int main(int argc, char *argv[]) {
     // If building a file
         if (bflag) {
             for (int y = 0; y < counter; y++) {
-                build_trove(read_file_storage.file_name);
+                build_trove(read_file_storage.file_name); //
             }
         }
         // If removing data from file

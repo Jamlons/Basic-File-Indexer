@@ -1,6 +1,7 @@
 //FUNCTIONS FOR FINDING WORDS WITHIN FILES
 #include "trove.h"
 #include <stdio.h>
+#include <stdlib.h>
 #define BUFSIZE (sizeof(char) * 10000)
 
 void read_file(char *filename) {

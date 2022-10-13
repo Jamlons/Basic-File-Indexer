@@ -1,4 +1,5 @@
 #ifndef TROVE_H
+#include <stdio.h>
 #define TROVE_H
 
 #define BUFSIZE = 100000;
@@ -10,7 +11,7 @@ extern FILE *create_trove(char *trovename);
 extern FILE *append_trove(char *filename);
 extern FILE *read_trove(char *filename);
 extern void add_file_path(FILE *fp, char *file_name);
-extern void find_names(FILE *fp);
+extern int find_names(FILE *fp);
 
 extern int min_word_length;
 extern char *filelist[];
@@ -20,4 +21,4 @@ typedef struct{
     char *word;
 }READ_FILE_STRUCTURE;
 
-#endif TROVE_H
+#endif

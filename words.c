@@ -37,6 +37,7 @@ void read_file(char *filename) {
       buf = strtok(NULL, ' ');
     }
   }
+  fprintf(trovefile, "\n");
   fclose(fp);
   fclose(trovefile);
 }

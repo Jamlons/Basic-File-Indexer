@@ -41,10 +41,14 @@ void list_directory(char *dirname) {
      int file_type = file_attributes(dp->d_name);
      if (file_type = 1) {
        printf("\n%s\n", dp->d_name);
+       add_file_path(dp->d_name);
        read_file(dp->d_name);
      }
      else {
        printf("\n%s\n", "This is a directory");
+       if (fork() == 0) {
+         list_directory(dp->d_name);
+       }
        // Create a child process giving them the directory name
        // And going through list_directory again
      }

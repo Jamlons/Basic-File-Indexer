@@ -20,3 +20,4 @@ typedef struct{
     char *word;
 }READ_FILE_STRUCTURE;
 
+#endif TROVE_H

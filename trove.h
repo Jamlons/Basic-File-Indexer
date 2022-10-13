@@ -14,9 +14,8 @@ extern void find_names(FILE *fp);
 
 extern int min_word_length;
 
-typedef struct {
+typedef struct{
     char *file_name;
     char *word;
 }READ_FILE_STRUCTURE;
 
-READ_FILE_STRUCTURE read_file_storage;

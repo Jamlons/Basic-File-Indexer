@@ -1,12 +1,22 @@
 //FUNCTION FOR INDEXING FILE INFO
 #include "trove.h"
 #include  <stdio.h>
+#include  <limits.h>
+#include  <stdlib.h>
 #include  <sys/types.h>
 #include  <sys/stat.h>
 #include  <sys/param.h>
 #include  <dirent.h>
 #include  <unistd.h>
 
-void add_file_info(FILE *fp) {
-   
+void add_file_path(FILE *fp, char *file_name) {
+   char buf[PATH_MAX];
+   char *resolved_path = realpath(file_name, buf);
+   if (resolved_path == NULL) {
+      // write to the *fp pointer  
+   }
+   else {
+      perror ("realpath");
+      exit(EXIT_FAILURE);
+   }
 }

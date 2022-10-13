@@ -4,7 +4,7 @@
 #define BUFSIZE = 100000;
 extern char *default_file_name;
 
-extern void file_attributes(char *filename);
+extern int file_attributes(char *filename);
 extern void read_file(char *filename);
 extern FILE *create_trove(char *trovename);
 extern FILE *append_trove(char *filename);

@@ -31,7 +31,6 @@ int file_attributes(char *filename) {
 void list_directory(char *dirname) {
   DIR *dirp;
   struct dirent *dp;
-  
   dirp = opendir(dirname);
   if (dirp == NULL) {
     perror( progname );
@@ -46,8 +45,18 @@ void list_directory(char *dirname) {
      }
      else {
        printf("\n%s\n", "This is a directory");
-       if (fork() == 0) {
-         list_directory(dp->d_name);
+       switch (fork()) {
+         case -1:
+           printf("fork failed\n");
+           exit(EXIT_FAILURE);
+           break;
+         case 0:
+           list_directory(dp->d_name);
+           break;
+         default:
+           int child, status;
+           child = wait(&status);
+           break;
        }
        // Create a child process giving them the directory name
        // And going through list_directory again

@@ -13,7 +13,7 @@ void add_file_path(FILE *fp, char *file_name) {
    char buf[PATH_MAX];
    char *resolved_path = realpath(file_name, buf);
    if (resolved_path == NULL) {
-      // write to the *fp pointer  
+      fprintf(fp, "%s ", resolved_path);  
    }
    else {
       perror ("realpath");

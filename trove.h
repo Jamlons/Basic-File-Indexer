@@ -18,5 +18,6 @@ extern char *filelist[];
 typedef struct{
     char *file_name;
     char *word;
+    int counter;
 }READ_FILE_STRUCTURE;
 

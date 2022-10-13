@@ -17,4 +17,4 @@ typedef struct {
     char *word;
 }read_file_structure;
 
-extern read_file_structure read_file;
+extern read_file_structure read_file_storage;

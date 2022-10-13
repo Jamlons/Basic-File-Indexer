@@ -121,27 +121,11 @@ int main(int argc, char *argv[]) {
         }
         // If removing data from file
         else if (rflag) {
-                FILE *remove_file_pointer = read_trove(read_file_storage.file_name);
-                if (remove_file_pointer == NULL) {
-                    printf("Unable to open %s, please confirm it is correct", read_file_storage.file_name);   
-                    perror(progname);
-                    exit(EXIT_FAILURE);
-                }
-            remove_files(remove_file_pointer, counter, read_file_storage.file_name);
-            fclose(remove_file_pointer);
+            remove_files(read_file_storage.file_name, counter, read_file_storage.file_name);
         }
         // If updating a file
         else if (uflag) {
-            FILE *update_file_pointer = read_trove(read_file_storage.file_name);
-            if (update_file_pointer == NULL) {
-                printf("Unable to open %s, please confirm it is correct", read_file_storage.file_name);
-                perror(progname);
-                exit(EXIT_FAILURE);
-            }
-            remove_files(update_file_pointer, counter, read_file_storage.file_name);
-            for (int y = 0; y < counter; y ++) {
-                build_trove(update_file_pointer);
-            } 
+            update_trove(read_file_storage.file_name, counter);
         }
     return 1;
 }

@@ -65,11 +65,17 @@ int main(int argc, char *argv[]) {
         usage(1);
     }
     while (optind < argc) {
-        // If any flags are true
-        if (bflag || rflag || uflag) {  
-            // process(argv[optind]);
-            // This will be a file path
-            optind++;
+        // If building a file
+        if (bflag) {
+            
+        }
+        // If removing data from file
+        else if (rflag) {
+            
+        }
+        // If updating a file
+        else if (uflag) {
+            
         }
         // If all flags are false
         else if (!bflag && !rflag && !uflag) {

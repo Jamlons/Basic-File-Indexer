@@ -17,7 +17,7 @@ void read_file(char *filename) {
     exit(EXIT_FAILURE);
   }
   // While there are lines within the file
-  while (fgets(line, sizeof line, fp) != NULL {
+  while (fgets(&line, sizeof line, fp) != NULL {
     // Make each non-alpha character a space
     for (char *temp = line; *temp; temp++) {
       if (!isalpha(*temp)) {

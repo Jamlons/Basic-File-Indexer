@@ -19,6 +19,7 @@ void usage(bool flag) {
 }
 
 int main(int argc, char *argv[]) {
+    int counter = 0;
     READ_FILE_STORAGE read_file_storage;
     int opt;
     read_file_storage.file_name = strdup(default_file_name);
@@ -67,36 +68,10 @@ int main(int argc, char *argv[]) {
         usage(1);
     }
     while (optind < argc) {
-        // If building a file
-        if (bflag) {
-            FILE *new_file_pointer = create_trove(read_file_storage.file_name);
-            // Failed to open file
-            if (new_file_pointer == NULL) {
-                printf("Unable to open %s, please confirm it is correct", read_file_storage.file_name);
-                perror(progname);
-                exit(EXIT_FAILURE);
-            }
-            int file_type = file_attributes(argv[optind]);
-            // file is directory
-            if (file_type == 1) {
-                list_directory(argv[optind]);
-            }
-            // file is reg file
-            else if (file_type == 2) {
-                add_file_path(&new_file_pointer, argv[optind]);
-                read_file(argv[optind]);
-            }
+        if (bflag || rflag || uflag) {
+            // Add each filename to a list called filelist
+            filelist[counter] = strdup(argv[optind]);
         }
-        // If removing data from file
-        else if (rflag) {
-            FILE *remove_file_pointer = read_trove(read_file_storage.file_name);
-        }
-        // If updating a file
-        else if (uflag) {
-            FILE *update_file_pointer = read_trove(read_file_storage.file_name);
-            
-        }
-        // If all flags are false
         else if (!bflag && !rflag && !uflag) {
             // If there are more than one word given
             if (optind++ < argc) {
@@ -109,5 +84,39 @@ int main(int argc, char *argv[]) {
             }
         }
     }
+    // If building a file
+        if (bflag) {
+            for (int y = 0; y < counter; y++) {
+                FILE *new_file_pointer = create_trove(read_file_storage.file_name);
+                // Failed to open file
+                if (new_file_pointer == NULL) {
+                    printf("Unable to open %s, please confirm it is correct", read_file_storage.file_name);
+                    perror(progname);
+                    exit(EXIT_FAILURE);
+                }
+                int file_type = file_attributes(filelist[y]);
+                // file is directory
+                if (file_type == 1) {
+                    list_directory(filelist[y]);
+                }
+                // file is reg file
+                else if (file_type == 2) {
+                    add_file_path(&new_file_pointer, filelist[y]);
+                    read_file(filelist[y]);
+                }
+            }
+        }
+        // If removing data from file
+        else if (rflag) {
+            for (int y = 0; y < counter; y ++) {
+                FILE *remove_file_pointer = read_trove(read_file_storage.file_name);
+            }    
+        }
+        // If updating a file
+        else if (uflag) {
+            for (int y = 0; y < counter; y ++) {
+                FILE *update_file_pointer = read_trove(read_file_storage.file_name);
+            } 
+        }
     return 1;
 }

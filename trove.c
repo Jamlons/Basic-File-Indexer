@@ -13,7 +13,7 @@ void usage(bool flag) {
     if (flag) {
         printf("\n%s" "You have entered the wrong invoking in the cmd.");
         printf("\n%s\n%s\n%s" "Please make sure you are either using" "./trove  [-f trovefile]  word"
-               "or" "./trove  [-f trovefile]  [-b  |  -r  |  -u]  [-l length]  filelist");
+               "or" "./trove  [-f trovefile]  [-b  ||  -r  ||  -u]  [-l length (positive integer)]  filelist");
         exit(EXIT_FAILURE);
     }
 }
@@ -55,6 +55,8 @@ int main(int argc, char *argv[]) {
         // Accept word length
         else if (opt == 'l') {
             max_word_length = atoi(optarg);
+            if (max_word_length <= 0)
+                argc = -1;
         }
         // Unknown argument
         else {

@@ -19,19 +19,6 @@ void usage(bool flag) {
     }
 }
 
-void build_trove(FILE *build_pointer) {
-    int file_type = file_attributes(filelist[y]);
-    // file is directory
-    if (file_type == 1) {
-        list_directory(filelist[y]);
-    }
-    // file is reg file
-    else if (file_type == 2) {
-        add_file_path(build_pointer, filelist[y]);
-        read_file(filelist[y]);
-    }
-}
-
 int main(int argc, char *argv[]) {
     int counter = 0;
     READ_FILE_STORAGE read_file_storage;
@@ -108,16 +95,8 @@ int main(int argc, char *argv[]) {
     // If building a file
         if (bflag) {
             for (int y = 0; y < counter; y++) {
-                FILE *new_file_pointer = create_trove(read_file_storage.file_name);
-                // Failed to open file
-                if (new_file_pointer == NULL) {
-                    printf("Unable to open %s, please confirm it is correct", read_file_storage.file_name);
-                    perror(progname);
-                    exit(EXIT_FAILURE);
-                }
-                build_trove(new_file_pointer);
+                build_trove(read_file_storage.file_name);
             }
-            fclose(new_file_pointer);
         }
         // If removing data from file
         else if (rflag) {

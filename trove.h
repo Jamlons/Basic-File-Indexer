@@ -13,6 +13,7 @@ extern void add_file_path(FILE *fp, char *file_name);
 extern void find_names(FILE *fp);
 
 extern int min_word_length;
+extern char *filelist[];
 
 typedef struct{
     char *file_name;

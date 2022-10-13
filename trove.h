@@ -9,6 +9,7 @@ extern void read_file(char *filename);
 extern FILE *create_trove(char *trovename);
 extern FILE *append_trove(char *filename);
 extern FILE *read_trove(char *filename);
+extern void add_file_path(FILE *fp, char *file_name);
 
 extern int min_word_length;
 

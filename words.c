@@ -5,9 +5,7 @@
 
 void read_file(char *filename) {
   char *buf;
-  char *line = NULL;
-  size_t len = 0;
-  ssize_t nread;
+  char *line;
   FILE *fp = fopen(filename, "r");
   FILE *trovefile = append_trove(fs->file_name);
   // fopen failed
@@ -20,7 +18,7 @@ void read_file(char *filename) {
     perror(progname);
     exit(EXIT_FAILURE);
   }
-  while ((nread = getline(&line, &len, stream)) != -1) {
+  while (fgets(&line, sizeof line, fp) != NULL {
     // Make each non-alpha character a space
     for (char *temp = line; *temp; temp++) {
       if (!isalpha(*temp)) {

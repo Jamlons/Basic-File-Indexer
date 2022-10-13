@@ -37,4 +37,6 @@ void remove_files(char *old_file_name, int counter, char *to_be_removed_file) {
   remove(to_be_removed_file);
   rename('This_isAnObsurWeName_H90peuFully_en0uGh.txt', to_be_removed_file);
   close (line);
+  fclose(new_file);
+  fclose(old_file);
 }

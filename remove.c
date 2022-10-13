@@ -3,9 +3,20 @@
 #include "file_edits.h"
 
 //To remove lines from files - must duplicate the text file without said lines in it
-void remove_files(FILE *fp, int counter, char *to_be_removed_file) {
+void remove_files(char *old_file_name, int counter, char *to_be_removed_file) {
   READ_FILE_STORAGE read_file_storage;
   FILE *new_file = create_trove('This_isAnObsurWeName_H90peuFully_en0uGh.txt');
+  FILE *old_file = read_trove(old_file_name);
+  if (new_file == NULL) {
+    printf("Unable to open %s, weird...", 'This_isAnObsurWeName_H90peuFully_en0uGh.txt');
+    perror(progname);
+    exit(EXIT_FAILURE);
+  }
+  if (old_file == NULL) {
+    printf("Unable to open %s, please make sure it is correct", old_file_name);
+    perror(progname);
+    exit(EXIT_FAILURE);
+  }
   int a;
   char *buf;
   char *line = NULL;

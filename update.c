@@ -13,6 +13,7 @@ void update_trove(char *file_name, int counter) {
   for (int y = 0; y < counter; y ++) {
     build_trove(update_file_pointer); 
   }
+  fclose(update_file_pointer);
 }
 
 void build_trove(char *filename) {

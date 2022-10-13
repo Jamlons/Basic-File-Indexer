@@ -77,11 +77,11 @@ int main(int argc, char *argv[]) {
             int file_type = file_attributes(argv[optind]);
             // file is directory
             if (file_type == 1) {
-                add_file_path(&new_file_pointer, argv[optind]);
                 list_directory(argv[optind]);
             }
             // file is reg file
             else if (file_type == 2) {
+                add_file_path(%new_file_pointer, argv[optind]);
                 read_file(argv[optind]);
             }
         }

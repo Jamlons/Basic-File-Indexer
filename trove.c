@@ -19,9 +19,9 @@ void usage(bool flag) {
 }
 
 int main(int argc, char *argv[]) {
-    READ_FILE_STORAGE *fs = &read_file_storage;
+    READ_FILE_STORAGE read_file_storage;
     int opt;
-    fs->file_name = strdup(default_file_name);
+    read_file_storage.file_name = strdup(default_file_name);
     max_word_length = 4;  
     bool bflag, rflag, uflag = false;
     
@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
     while ((opt = getopt(argc, argv, OPTLIST)) != -1) {
         // Accept file name
         if (opt == 'f') {
-            fs->file_name = strdup(optarg);
+            read_file_storage.file_name = strdup(optarg);
         }
         // Accept build option
         else if (opt == 'b') {
@@ -69,10 +69,10 @@ int main(int argc, char *argv[]) {
     while (optind < argc) {
         // If building a file
         if (bflag) {
-            FILE *new_file_pointer = create_trove(fs->file_name);
+            FILE *new_file_pointer = create_trove(read_file_storage.file_name);
             // Failed to open file
             if (new_file_pointer == NULL) {
-                printf("Unable to open %s, please confirm it is correct", fs->file_name);
+                printf("Unable to open %s, please confirm it is correct", read_file_storage.file_name);
                 perror(progname);
                 exit(EXIT_FAILURE);
             }
@@ -89,11 +89,11 @@ int main(int argc, char *argv[]) {
         }
         // If removing data from file
         else if (rflag) {
-            FILE *remove_file_pointer = read_trove(fs->file_name);
+            FILE *remove_file_pointer = read_trove(read_file_storage.file_name);
         }
         // If updating a file
         else if (uflag) {
-            FILE *update_file_pointer = read_trove(fs->file_name);
+            FILE *update_file_pointer = read_trove(read_file_storage.file_name);
             
         }
         // If all flags are false
@@ -103,9 +103,9 @@ int main(int argc, char *argv[]) {
                 usage(1);
             }
             else {
-                fs->word = argv[optind];
-                FILE *find_pointer = read_trove(fs->file_name);
-                find_names(&find_pointer);
+                read_file_storage.word = argv[optind];
+                FILE *find_pointer = read_trove(read_file_storage.file_name);
+                find_names(find_pointer);
             }
         }
     }

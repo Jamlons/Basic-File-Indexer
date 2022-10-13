@@ -15,6 +15,6 @@ extern int min_word_length;
 typedef struct {
     char *file_name;
     char *word;
-}read_file_structure;
+}READ_FILE_STRUCTURE;
 
-extern read_file_structure read_file_storage;
+extern READ_FILE_STRUCTURE read_file_storage;

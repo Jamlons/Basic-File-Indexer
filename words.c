@@ -1,9 +1,13 @@
 //FUNCTIONS FOR FINDING WORDS WITHIN FILES
 #include "trove.h"
+#include <stdio.h>
+#define BUFSIZE (sizeof(char) * 10000)
 
 void read_file(char *filename) {
   char *buf;
-  char *line; 
+  char *line = NULL;
+  size_t len = 0;
+  ssize_t nread;
   FILE *fp = fopen(filename, "r");
   FILE *trovefile = append_trove(fs->file_name);
   // fopen failed
@@ -16,24 +20,19 @@ void read_file(char *filename) {
     perror(progname);
     exit(EXIT_FAILURE);
   }
-  // While there are lines within the file
-  while (fgets(&line, sizeof line, fp) != NULL {
+  while ((nread = getline(&line, &len, stream)) != -1) {
     // Make each non-alpha character a space
     for (char *temp = line; *temp; temp++) {
       if (!isalpha(*temp)) {
         *temp = ' ';
       }
     }
-    // Grab the alphanumeric word
-    buf = strtok(line, ' ');
-    // While the buffer has a word
+    buf = strtok(&line, ' ');
+    
     while (buf != NULL) {
-      // If buffered word is bigger than min length
       if (strlen(buf) >= min_word_length) {
-        // Add word to buffer
         fprintf(trovefile, "%s ", buf);
       }
-      // Grab next tokenised word
       buf = strtok(NULL, ' ');
     }
   }

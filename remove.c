@@ -1,4 +1,5 @@
 //FUNCTION TO REMOVE FILE INFO FROM GIVEN TROVEFILE
+// WON'T WORK SEE findnames.c to see how its done
 #include "trove.h"
 #include "file_edits.h"
 #include <stdio.h>

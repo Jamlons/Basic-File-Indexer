@@ -2,22 +2,18 @@
 #include "trove.h"
 #include <stdio.h>
 #include <stdlib.h>
-#define BUFSIZE (sizeof(char) * 10000)
+#include <ctype.h>
+#include <string.h>
 
-void read_file(char *filename) {
+void read_file(FILE *build_pointer, char *filename) {
+  READ_FILE_STRUCTURE *rfs = &read_file_structure;
   char *buf;
   char *line = NULL;
   size_t linesize = 0;
   ssize_t linelen;
   FILE *fp = fopen(filename, "r");
-  FILE *trovefile = append_trove(fs->file_name);
   // fopen failed
   if (fp == NULL) {
-    perror(progname);
-    exit(EXIT_FAILURE);
-  }
-  // if append_trove failed
-  if (trovefile == NULL) {
     perror(progname);
     exit(EXIT_FAILURE);
   }
@@ -28,17 +24,16 @@ void read_file(char *filename) {
         *temp = ' ';
       }
     }
-    buf = strtok(&line, ' ');
+    buf = strtok(line, " ");
     
     while (buf != NULL) {
-      if (strlen(buf) >= min_word_length) {
-        fprintf(trovefile, "%s ", buf);
+      if (strlen(buf) >= rfs->min_word_length) {
+        fprintf(build_pointer, "%s ", buf);
       }
-      buf = strtok(NULL, ' ');
+      buf = strtok(NULL, " ");
     }
   }
-  fprintf(trovefile, "\n");
+  fprintf(build_pointer, "\n");
   free(line);
   fclose(fp);
-  fclose(trovefile);
 }

@@ -6,6 +6,7 @@
 #include <sys/stat.h>
 #include <time.h>
 #include <unistd.h>
+#include <dirent.h>
 
 // To see if file is a regular file or a directory
 // Returns 1 if reg, returns 2 if dir
@@ -14,7 +15,7 @@ int file_attributes(char *filename) {
   
   // Failed to open stat buffer for the given filename
   if(stat(filename, &stat_buffer) != 0) {
-    perror(progname);
+    perror( progname );
     exit(EXIT_FAILURE);
   }
   // Is a file - is readable 
@@ -25,6 +26,7 @@ int file_attributes(char *filename) {
   else if (S_ISDIR(stat_buffer.st_mode)) {
     return 2;
   }
+  return 0;
 }
 
 // Lists every file or directory within a given directory
@@ -32,15 +34,17 @@ void list_directory(char *dirname) {
   DIR *dirp;
   struct dirent *dp;
   dirp = opendir(dirname);
+  // If we failed to open the directory
   if (dirp == NULL) {
     perror( progname );
     exit(EXIT_FAILURE);
   }
   while((dp = readdir(dirp)) != NULL) {
      int file_type = file_attributes(dp->d_name);
-     if (file_type = 1) {
+     if (file_type == 1) {
+       FILE *fp = append_trove(dp->d_name);
        printf("\n%s\n", dp->d_name);
-       add_file_path(dp->d_name);
+       add_file_path(fp, dp->d_name);
        read_file(dp->d_name);
      }
      else {
@@ -54,8 +58,6 @@ void list_directory(char *dirname) {
            list_directory(dp->d_name);
            break;
          default:
-           int child, status;
-           child = wait(&status);
            break;
        }
        // Create a child process giving them the directory name

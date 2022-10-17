@@ -9,12 +9,12 @@
 
 FILE *create_trove(char *trovename) {
   FILE *fp;
-  fp = fopen(filename, "w+");
+  fp = fopen(trovename, "w+");
   if (fp == NULL) {
     perror (progname);
     exit(EXIT_FAILURE);
   }
-  printf("File %s has been created", *trovename);
+  printf("File %s has been created\n", trovename);
   return fp;
 }
 

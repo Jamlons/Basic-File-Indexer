@@ -12,7 +12,8 @@
 void add_file_path(FILE *fp, char *file_name) {
    char buf[PATH_MAX];
    char *resolved_path = realpath(file_name, buf);
-   if (resolved_path == NULL) {
+   printf("\nThis is the resolved path: %s\n", resolved_path);
+   if (resolved_path != NULL) {
       fprintf(fp, "%s ", resolved_path);  
    }
    else {

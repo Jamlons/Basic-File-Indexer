@@ -5,7 +5,7 @@ CFLAGS = -Wall -pedantic -Werror
 
 PROJECT = trove
 HEADERS = $(PROJECT).h
-OBJ = trove.o global.o findfiles.o filenames.o indexing.o remove.o trovefile.o update.o words.o
+OBJ = trove.o globals.o findfiles.o filenames.o indexing.o remove.o trovefile.o update.o words.o
 
 $(PROJECT) : $(OBJ)
 	$(C11) $(CFLAGS) -o $(PROJECT) $(OBJ) -lm

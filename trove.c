@@ -104,10 +104,19 @@ int main(int argc, char *argv[]) {
             else {
                 printf("Grabbing word...\n");
                 printf("Optind value is now: %d\n", optind);
+                if ((optind + 1) != argc) {
+                    usage(1);
+                }
+                printf("Optind value is now: %d\n", optind);
                 rfs->word = strdup(argv[optind]);
-                printf("creating pointer");
+                printf("creating pointer\n");
+                printf("Word is: %s\n", rfs->word);
                 FILE *find_pointer = read_trove(rfs->file_name);
-                file_found = find_names(find_pointer, rfs->word);
+                if (find_pointer == NULL) {
+                    printf("Couldn't open %s. Please check.", rfs->file_name);
+                    exit(EXIT_FAILURE);
+                }
+                file_found = find_names(find_pointer);
             }
             if (file_found) {
                 exit(EXIT_SUCCESS);   

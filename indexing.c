@@ -20,4 +20,5 @@ void add_file_path(FILE *fp, char *file_name) {
       perror ("realpath");
       exit(EXIT_FAILURE);
    }
+   fprintf(fp, "\n");
 }

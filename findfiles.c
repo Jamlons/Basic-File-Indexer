@@ -45,7 +45,7 @@ void list_directory(char *dirname) {
        FILE *fp = append_trove(dp->d_name);
        printf("\n%s\n", dp->d_name);
        add_file_path(fp, dp->d_name);
-       read_file(dp->d_name);
+       read_file(fp, dp->d_name);
      }
      else {
        printf("\n%s\n", "This is a directory");

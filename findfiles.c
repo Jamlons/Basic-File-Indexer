@@ -39,14 +39,19 @@ void list_directory(char *dirname) {
     perror( progname );
     exit(EXIT_FAILURE);
   }
+  // While directory stream is not null
   while((dp = readdir(dirp)) != NULL) {
+    // Grab the file type
      int file_type = file_attributes(dp->d_name);
+     // If file is regular
      if (file_type == 1) {
+       // Add information to the given file
        FILE *fp = append_trove(dp->d_name);
        printf("\n%s\n", dp->d_name);
        add_file_path(fp, dp->d_name);
        read_file(fp, dp->d_name);
      }
+     // File is a directory
      else {
        printf("\n%s\n", "This is a directory");
        switch (fork()) {

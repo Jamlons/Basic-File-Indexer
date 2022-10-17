@@ -1,4 +1,5 @@
 //FUNCTION FOR UPDATING GIVEN FILES INSIDE GIVEN TROVEFILE
+// Most likely will not work, see findnames.c to see how it is done
 #include "trove.h"
 #include "file_edits.h"
 #include <stdio.h>

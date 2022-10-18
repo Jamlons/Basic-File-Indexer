@@ -18,7 +18,7 @@ void usage(bool flag) {
         exit(EXIT_FAILURE);
     }
 }
-
+// Main function of trove
 int main(int argc, char *argv[]) {
     int counter = 0;
     // Global structure
@@ -89,7 +89,9 @@ int main(int argc, char *argv[]) {
                 usage(1);
             }
             else {
+                // Add word to global structure
                 rfs->word = strdup(argv[optind]);
+                // Create pointer in read+ mode
                 FILE *find_pointer = read_trove(rfs->file_name);
                 if (find_pointer == NULL) {
                     exit(EXIT_FAILURE);

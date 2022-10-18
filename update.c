@@ -10,9 +10,12 @@
 #include <getopt.h>
 
 void update_trove(char *file_name, int counter) {
+  READ_FILE_STRUCTURE *rfs = &read_file_structure;
   remove_files(file_name, counter, file_name);
+  FILE *append_pointer = append_trove(file_name);
   for (int y = 0; y < counter; y ++) {
-    build_trove(counter); 
+    add_file_path(append_pointer, rfs->filelist[y];
+    read_file(append_pointer, rfs->filelist[y];
   }
 }
 

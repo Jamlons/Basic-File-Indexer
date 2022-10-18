@@ -62,4 +62,5 @@ void remove_files(int counter) {
   rename(temp_file_name, to_be_removed_file);
   fclose(new_file);
   fclose(old_file);
+  free(line);
 }

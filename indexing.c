@@ -26,7 +26,7 @@ char *get_resolved_path(char *file_name) {
    // Grab the resolved full path name
    char *resolved_path = realpath(file_name, buf);
    if (resolved_path == NULL) {
-      perror("realpath);
+      perror("realpath");
       exit(EXIT_FAILURE);
    }
    return resolved_path;

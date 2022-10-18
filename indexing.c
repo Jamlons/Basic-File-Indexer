@@ -18,12 +18,11 @@ void add_file_path(FILE *fp, char *file_name) {
    char *resolved_path = realpath(file_name, buf);
    // If the pathname isn't empty add to text file
    if (resolved_path != NULL) {
-      fprintf(fp, "%s ", resolved_path);  
+      fprintf(fp, "%s\n", resolved_path);  
    }
    else {
    // Otherwise break
       perror ("realpath");
       exit(EXIT_FAILURE);
    }
-   fprintf(fp, "\n");
 }

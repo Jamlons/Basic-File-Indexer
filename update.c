@@ -9,14 +9,26 @@
 #include <unistd.h>
 #include <getopt.h>
 
-void update_trove(char *file_name, int counter) {
+void update_trove(int counter) {
   READ_FILE_STRUCTURE *rfs = &read_file_structure;
-  remove_files(file_name, counter, file_name);
+  remove_files(counter);
   FILE *append_pointer = append_trove(file_name);
-  for (int y = 0; y < counter; y ++) {
-    add_file_path(append_pointer, rfs->filelist[y];
-    read_file(append_pointer, rfs->filelist[y];
+  if (append_pointer == NULL) {
+    printf("Unable to open %s, please make sure it is correct\n", rfs->file_name);
+    perror(progname);
+    exit(EXIT_FAILURE);
   }
+  for (int y = 0; y < counter; y++) {
+    int file_type = file_attributes(rfs->filelist[y]);
+    if (file_type == 2) {
+      list_directory(rfs->filelist[y]); 
+    }
+    else if (file_type == 1) {
+      add_file_path(append_pointer, rfs->filelist[y]);
+      read_file(append_pointer, rfs->filelist[y]);
+    } 
+  }
+  fclose(append_pointer);
 }
 
 void build_trove(int counter) {

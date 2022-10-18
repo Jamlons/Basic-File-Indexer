@@ -1,3 +1,4 @@
+// Header File to allow main() to access functions to edit, update and remove information from trove files.
 #ifndef FILE_EDITS_H
 #define FILE_EDITS_H
 

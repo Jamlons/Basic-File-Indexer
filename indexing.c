@@ -15,14 +15,19 @@ void add_file_path(FILE *fp, char *file_name) {
    // Create a buffer that is the max limit a path can be
    char buf[PATH_MAX];
    // Grab the resolved full path name
+   char *resolved_path = get_resolved_path(file_name);
+   // Add file path to text file
+   fprintf(fp, "%s\n", resolved_path);  
+}
+
+char *get_resolved_path(char *file_name) {
+   // Create a buffer that is the max limit a path can be
+   char buf[PATH_MAX];
+   // Grab the resolved full path name
    char *resolved_path = realpath(file_name, buf);
-   // If the pathname isn't empty add to text file
-   if (resolved_path != NULL) {
-      fprintf(fp, "%s\n", resolved_path);  
-   }
-   else {
-   // Otherwise break
-      perror ("realpath");
+   if (resolved_path == NULL) {
+      perror("realpath);
       exit(EXIT_FAILURE);
    }
+   return resolved_path;
 }

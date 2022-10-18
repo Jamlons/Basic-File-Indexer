@@ -54,6 +54,7 @@ void remove_files(int counter) {
     // File path must be true - add all words to next line
     else {
       fprintf(new_file, "%s\n", line);
+      count++;
     }
   // Remove old file
   remove(to_be_removed_file);

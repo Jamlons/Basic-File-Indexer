@@ -1,0 +1,30 @@
+Unix was born in 1969 out of the mind of a computer scientist at Bell
+Laboratories, Ken Thompson. Thompson had been a researcher on the Multics
+project, an experience which spoiled him for the primitive batch computing
+that was the rule almost everywhere else. But the concept of timesharing
+was still a novel one in the late 1960s; the first speculations on it had
+been uttered barely ten years earlier by computer scientist John McCarthy
+(also the inventor of the Lisp language), the first actual deployment had
+been in 1962, seven years earlier, and timesharing operating systems were
+still experimental and temperamental beasts.
+
+Computer hardware was at that time more primitive than even people who
+were there to see it can now easily recall. The most powerful machines
+of the day had less computing power and internal memory than a typical
+cellphone of today. Video display terminals were in their infancy
+and would not be widely deployed for another six years. The standard
+interactive device on the earliest timesharing systems was the ASR-33
+teletype - a slow, noisy device that printed upper-case-only on big
+rolls of yellow paper. The ASR-33 was the natural parent of the Unix
+tradition of terse commands and sparse responses.
+
+When Bell Labs withdrew from the Multics research consortium, Ken
+Thompson was left with some Multics-inspired ideas about how to build a
+file system. He was also left without a machine on which to play a game
+he had written called Space Travel, a science-fiction simulation that
+involved navigating a rocket through the solar system. Unix began its
+life on a scavenged PDP-7 minicomputer, as a platform for the Space Travel
+game and a testbed for Thompson's ideas about operating system design.
+
+[adapted from http://www.catb.org/esr/writings/taoup/html/ch02s01.html]
+

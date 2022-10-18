@@ -1,0 +1,97 @@
+http://sports.yahoo.com/blogs/mlb-big-league-stew/jean-segura-steals-second-then-steals-first-bizarre-103642855--mlb.html
+
+In baseball the object is to iterate as many tokens as you can through a 4
+slotted dequeue FIFO (implemented internally as a self referencing doubly
+linked list); Iteration run time is earned by the batting team by causing
+the hardest to solve ball sorting problems possible for the other team (most
+entropic ball state). The opposing team manages a counter labeled "Outs"
+initialized to 0 each "inning". If the counter is incremented to 3 the teams
+switch objectives, and a the out counter is reset. Each full iteration of a
+player though the buffer increments a team's "run" variable. The team with
+the greatest runs wins (typically by earning the most loop execution time).
+
+The team managing the out counter distributes themselves optimally around
+the field such that they'll be able to detect the ball's location within a
+short period of time -- AND -- so that they can sort the ball back to their
+prime ball holder, the "pitcher". To get a chance to increment the out
+counter (and thus eventually have their turn at bat, and increase their
+runs) the pitching team gives the batting team a chance to hit the ball (and
+cause the ball sorting problem). While the ball is being sorted player
+tokens can iterate through the FIFO buffer nodes (bases). Only one
+additional player can enter base queue per sorting problem created. The
+bases are allowed to be null (no players), and players can move in both
+directions around the loop.
+
+A pitcher must give adequate chance for the ball sorting problem to be
+created by passing the ball through a volume called the "strike zone" which
+is created by clipping the prismatic space above home plate to the vertical
+interval between the batter's knees and the midpoint in their chest. The
+midpoint is a point half way between the shoulders and top of the pants.
+Note: Creating an impossible planar strike zone by pulling one's pants down
+to the knee and bending at the waste to bring the shoulders in line is
+considered extremely rude "unsportsmanlike conduct". If the batter does not
+swing at a valid pitch then it is counted against them as a "strike". If the
+bat is swung at the ball and no valid sorting problem is created it is
+considered a strike whether the ball passed through the strike zone or not.
+If a batter accumulates 3 strikes it is converted to an out and their
+iteration is preempted. The pitcher may throw outside the strike zone to
+trick the player into leaping at an unfair starting condition, but if the
+player does not swing at such invalid pitches then they are considered unfit
+"balls", four such balls allows the player to automatically reach 1st base
+safely, and if occupied the bases will increment, possibly causing a run to
+be scored. This is called Walking, since there is no danger of being
+interrupted. Walks in the park are quite nice, but do not make for good
+games.
+
+A batter must cause a valid sorting problem with the ball within 3 attempts
+(swings) at valid pitches, or they lose their chance to enter the FIFO and
+the out counter is incremented. Valid sorting problems are those where the
+post-hit ball travel vector is within the area formed by rotating a ray
+extending from home through base 0 until it intersects base 3 (inclusive).
+If the valid ball is hit out of the park (or strikes the pole erected along
+the base lines to make the problem space visible, while above the fence)
+then the ball sorting problem is considered infinitely complex and the
+iteration queue can be emptied of all players actively in the FIFO buffer
+and they all count as runs -- This is called a home run. The ball sorting
+problem is considered too simple if the ball is caught from out of the air
+directly by the opposing team before it strikes the ground, and such counts
+as an immediate out, forfeiting the running player's iteration cycle.
+Hitting the ball outside the valid sorting problem space is called a foul
+ball, counting as a strike.
+
+The player at bat begins at base zero (home) and, after hitting the ball,
+tries to iterate from base1 to base2 to base3 and back home around the
+diamond shape without getting touched by the ball (or a glove covered ball).
+If the opposing team touches with the ball a player in the process of
+updating the base (node) states (moving between them) then the out counter
+is incremented, the iterating player's value is considered corrupted, and
+they are immediately garbage collected from the iteration area and
+re-ineserted into the at-bat chance queue. While a player is stored in a
+node (touching a base) they are considered immutable (safe), and touching
+them with the ball does not remove them from the FIFO queue. If the
+destination base is touched while the player is iterating, and to return is
+impossible (due to 1st base iteration, or players behind pushing them
+forward) then they are considered "out" as well. The moment a running player
+touches home base on their final increment they are no longer considered in
+the FIFO queue and the run counter is incremented (this resolves the issue
+of a player running home while a player is at bat).
+
+The players on the base nodes are in an unstable state, and can attempt to
+iterate to a non null base (or home) pretty much at any time, however, while
+the pitcher has control of the ball he creates a deadlock in the running
+iterations by threat of race condition due to of his ability to deliver the
+ball to a destination base or player who can tag the runner out -- Tossing
+the ball directly at the iterating players is considered illegal because of
+injury concerns. So, when the batter strikes the ball any on base players
+consider their chances of successful iteration and may attempt to run --
+They take advantage of the length of time it takes for the opposing team to
+sort the ball back into a high risk state. Storing two "running" players per
+node or swapping player order is considered an illegal operation, the lower
+valued player must return to the prior node or be counted out.
+
+The pitcher gives batters a chance to create sorting problems, while keeping
+runners in dead-lock, preventing iteration. The batter creates the most time
+consuming sorting problem possible (including just tapping the ball
+"bunting" it, leaving it near home plate). The runners look for
+opportunities to iterate without causing exceptions, all while some
+scoreboard software fails to implement a doubly linked list properly!

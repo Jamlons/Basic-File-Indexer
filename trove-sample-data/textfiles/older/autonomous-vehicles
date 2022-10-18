@@ -1,0 +1,40 @@
+The development of autonomous vehicles by automotive and technology
+companies, is an exciting and active area of research receiving
+much media attention.  Fascination extends from the independence of
+these vehicles, gained by measuring their local environments using a
+number of sensing and imaging technologies.  The widely adopted SAE
+International's Levels of Driving Automation define a six-level scale
+describing vehicle independence, with higher levels indicating more
+sophisticated automation.  Contemporary research has recently developed
+vehicles rated at level-3 in which vehicles can operate autonomously but
+do not support all driving modes, such as high speed highway driving or
+low speed traffic jams and, in an emergency, require driver intervention.
+To attain higher levels of driving automation vehicles must be able to
+reason about their environment to be able to support all driving modes
+and to react in emergencies.  To achieve this, research must extend to
+fully-connected vehicles, in which vehicles become more aware of their
+environment, at greater distances, by communicating with other vehicles
+and transport infrastructure.
+
+The speed and latency communication requirements of fully-connected
+vehicles preclude their use of 4G and even 5G telephony networks.
+Instead, vehicles will communicate using localised and temporarily-formed
+vehicle ad-hoc networks (VANETs).  Without a centralised authority, VANETs
+are susceptible to malicious attacks from vehicles and even roadside
+infrastructure, which can transmit falsified information about vehicles'
+motion and road conditions.  Such attacks have the potential to disable
+individual vehicles, dramatically increase congestion, and even cause
+potentially fatal accidents.  Past research has attempted to address this
+problem using roadside units (RSU), devices which supply services such
+as temporary authentication or systems to prevent identified malicious
+actors from communicating.  However, these units will incur a large cost
+to set up, will have a transition period before they are operational and,
+particularly in a large country such as Australia with remote areas,
+cannot offer full coverage.
+
+To better support the detection of falsified or simply errant information,
+we require a decentralised system which establishes localised reputation-
+and trust-based networks between fully-connected vehicles.  Information
+received by each vehicle must be verified by calculations that match
+data from physical systems on the vehicle and the degree of consensus
+about the same information also received by neighbouring vehicles.

@@ -36,37 +36,44 @@ void list_directory(char *dirname) {
   dirp = opendir(dirname);
   // If we failed to open the directory
   if (dirp == NULL) {
-    perror( progname );
-    exit(EXIT_FAILURE);
+	perror( progname );
+	exit(EXIT_FAILURE);
   }
   // While directory stream is not null
   while((dp = readdir(dirp)) != NULL) {
-    // Grab the file type
-     int file_type = file_attributes(dp->d_name);
-     // If file is regular
-     if (file_type == 1) {
-       // Add information to the given file
-       FILE *fp = append_trove(dp->d_name);
-       printf("\n%s\n", dp->d_name);
-       add_file_path(fp, dp->d_name);
-       read_file(fp, dp->d_name);
-     }
-     // File is a directory
-     // THIS DOESN"T WORK PLEASE FIX
-     else {
-       printf("\n%s\n", "This is a directory");
-       switch (fork()) {
-         case -1:
-           printf("fork failed\n");
-           exit(EXIT_FAILURE);
-           break;
-         case 0:
-           list_directory(dp->d_name);
-           break;
-         default:
-           break;
-       }
-     }
+	// Grab the file type
+	int file_type = file_attributes(dp->d_name);
+	// If file is regular
+	if (file_type == 1) {
+	  // Add information to the given file
+	  FILE *fp = append_trove(dp->d_name);
+	  printf("\n%s\n", dp->d_name);
+	  add_file_path(fp, dp->d_name);
+	  read_file(fp, dp->d_name);
+	}
+	// If file is a directory
+	// THIS DOESN'T WORK PLEASE FIX
+	else if (file_type == 2) {
+	  printf("\n%s\n", "This is a directory");
+	  switch (fork()) {
+		case -1:
+		  printf("fork failed\n");
+		  exit(EXIT_FAILURE);
+		  break;
+		//Child fork process
+		case 0:
+		  list_directory(dp->d_name);
+		  break;
+		//Parent(original) fork process
+		default:
+		  break;
+		}
+	  }
+	  //File is neither file nor directory
+	  else {
+	  printf("\n%s\n","File type not supported");
+	  exit(EXIT_FAILURE);
+	}
   }
   closedir(dirp);
 }

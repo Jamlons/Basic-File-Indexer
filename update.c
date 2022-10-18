@@ -10,14 +10,18 @@
 #include <getopt.h>
 
 void update_trove(int counter) {
+  // Global Structure
   READ_FILE_STRUCTURE *rfs = &read_file_structure;
+  // Remove the files needing to be updated
   remove_files(counter);
   FILE *append_pointer = append_trove(file_name);
+  // If appending pointer is empty
   if (append_pointer == NULL) {
     printf("Unable to open %s, please make sure it is correct\n", rfs->file_name);
     perror(progname);
     exit(EXIT_FAILURE);
   }
+  // For every file within filelist
   for (int y = 0; y < counter; y++) {
     int file_type = file_attributes(rfs->filelist[y]);
     if (file_type == 2) {

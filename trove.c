@@ -98,6 +98,7 @@ int main(int argc, char *argv[]) {
                 }
                 // Find the words within given file
                 file_found = find_names(find_pointer);
+                fclose(find_pointer);
             }
             if (file_found) {
                 exit(EXIT_SUCCESS);   
@@ -118,7 +119,7 @@ int main(int argc, char *argv[]) {
         }
         // If removing data from file
         else if (rflag) {
-            remove_files(rfs->file_name, counter, rfs->file_name);
+            remove_files(counter);
         }
         // If updating a file
         else if (uflag) {

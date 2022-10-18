@@ -24,19 +24,25 @@ void remove_files(char *old_file_name, int counter, char *to_be_removed_file) {
   }
   char *buf;
   char *line = NULL;
+  char *file_path = NULL;
   size_t linesize = 0;
   ssize_t linelen;
+  int count = 1;
   while ((linelen = getline(&line, &linesize, old_file)) != -1) {
-    buf = strtok(line, " ");
-    for (int x = 0; x <= counter; x++) {
-      if (!strcmp(rfs->filelist[x], buf)) {
-        break; 
+    if ((count % 2) != 0) {
+      file_path = strdup(line);
+      for (int a = 0; a < counter; a++) {
+        if (!strcmp(file_path, filelist[a]) {
+          count = count + 2;
+          continue;
+        }
       }
-      else {
-        fwrite(line, 1, sizeof(char), new_file);
-      }
+      fprintf(new_file, "%s\n", file_path);
+      count++;
     }
-  }
+    else {
+      fprintf(new_file, "%s\n", line);
+    }
   remove(to_be_removed_file);
   rename(temp_file_name, to_be_removed_file);
   fclose(new_file);

@@ -123,7 +123,7 @@ int main(int argc, char *argv[]) {
         }
         // If updating a file
         else if (uflag) {
-            update_trove(rfs->file_name, counter);
+            update_trove(counter);
         }
     return 1;
 }

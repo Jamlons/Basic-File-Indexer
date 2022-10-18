@@ -10,6 +10,7 @@
 #include  <unistd.h>
 // Not every library is needed - please remove
 
+// Adds the full file path to the given trove file
 void add_file_path(FILE *fp, char *file_name) {
    // Create a buffer that is the max limit a path can be
    char buf[PATH_MAX];

@@ -33,7 +33,7 @@ int find_names(FILE *fp) {
       // If the parsed word does equal the word we are searching for
       if(!strcmp(temp, buf)) {
         // Print file path out and break out of the entire loop
-        printf("%s\n", file_path);
+        printf("%s", file_path);
         amount_of_files_found++;
         break;
       }

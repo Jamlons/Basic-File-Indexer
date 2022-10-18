@@ -7,11 +7,11 @@
 #include <string.h>
 
 //To remove lines from files - must duplicate the text file without said lines in it
-void remove_files(char *old_file_name, int counter, char *to_be_removed_file) {
+void remove_files(int counter) {
   READ_FILE_STRUCTURE *rfs = &read_file_structure;
   char *temp_file_name = "as239gnma9yhq9109k23.txt";
   FILE *new_file = create_trove(temp_file_name);
-  FILE *old_file = read_trove(old_file_name);
+  FILE *old_file = read_trove(rfs->file_name);
   // If file stream failed
   if (new_file == NULL) {
     printf("Unable to open %s, weird...", temp_file_name);

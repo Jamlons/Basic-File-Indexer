@@ -52,6 +52,7 @@ void list_directory(char *dirname) {
        read_file(fp, dp->d_name);
      }
      // File is a directory
+     // THIS DOESN"T WORK PLEASE FIX
      else {
        printf("\n%s\n", "This is a directory");
        switch (fork()) {
@@ -65,8 +66,6 @@ void list_directory(char *dirname) {
          default:
            break;
        }
-       // Create a child process giving them the directory name
-       // And going through list_directory again
      }
   }
   closedir(dirp);

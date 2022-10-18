@@ -2,7 +2,7 @@
 #ifndef FILE_EDITS_H
 #define FILE_EDITS_H
 
-extern void update_trove(char *file_name, int counter);
+extern void update_trove(int counter);
 extern void remove_files(int counter);
 extern void build_trove(int counter);
 

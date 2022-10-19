@@ -60,6 +60,8 @@ void list_directory(char *dirname) {
 	else if (file_type == 2) {
 	  printf("\n%s\n", "This is a directory");
 	  dirlist[dircount] = strdup(dp->d_name);
+	  printf("The name of directory found is: %s\n", dp->d_name);
+	  printf("Saved at dircount location: %d\n", dircount);
  	  dircount++;
 	}
 	//File is neither file nor directory

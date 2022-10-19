@@ -20,46 +20,64 @@ void remove_files(int counter) {
   }
   // If file stream failed
   if (old_file == NULL) {
-    printf("Unable to open %s, please make sure it is correct", old_file_name);
+    printf("Unable to open %s, please make sure it is correct", rfs->file_name);
     perror(progname);
     exit(EXIT_FAILURE);
   }
-  char *buf;
   char *line = NULL;
   char *file_path = NULL;
+  char *file_list_path = NULL;
   size_t linesize = 0;
   ssize_t linelen;
   int count = 1;
   // While grabbing each line of the text file
   while ((linelen = getline(&line, &linesize, old_file)) != -1) {
+    int flag = 0;
+    printf("Grabbing lines...\n");
+    printf("Count is: %d\n", count);
     // If line is a file path (odd number)
     if ((count % 2) != 0) {
       // Save file path to a temp location
       file_path = strdup(line);
+      // Make '\n' character null
+      file_path[strlen(file_path) - 1] = 0;
+      printf("File path is: %s\n", file_path);
       // For every file in filelist
       for (int a = 0; a < counter; a++) {
+        file_list_path = get_resolved_path(rfs->filelist[a]);
+        printf("Current file given is: %s\n", file_list_path);
         // If the file path and file list equal
-        if (!strcmp(file_path, rfs->filelist[a]) {
+        if (!strcmp(file_path, file_list_path)) {
+          printf("Files match! Removing...\n");
+          printf("File name is %s", line);
           // Increase count by two
           // This will skip over both the file path and the words in said file
-          count = count + 2;
+          linelen = getline(&line, &linesize, old_file);
+          printf("File contents is %s", line);
+          // Why do we need this??? I can't figure out why it is needed for the remove function to work.
+          flag = 1;
           continue;
         }
       }
       // If the file path is not to be removed add it to the new file
+      if (flag)
+        continue;
+      printf("Adding %s to the file", file_path);
       fprintf(new_file, "%s\n", file_path);
       count++;
       continue;
     }
     // File path must be true - add all words to next line
     else {
-      fprintf(new_file, "%s\n", line);
+      fprintf(new_file, "%s", line);
       count++;
     }
+  }
   // Remove old file
-  remove(to_be_removed_file);
+  remove(rfs->file_name);
+  printf("Removing old file...");
   // Rename new file as old file name
-  rename(temp_file_name, to_be_removed_file);
+  rename(temp_file_name, rfs->file_name);
   fclose(new_file);
   fclose(old_file);
   free(line);

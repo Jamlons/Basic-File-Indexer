@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdio.h>
 
-// Find the word given by user within the file stream provided
+// Find the word given by user within the File stream provided
 // Returns 1 if a name is found, otherwise returns 0.
 int find_names(FILE *fp) {
   // Global Structure
@@ -39,7 +39,6 @@ int find_names(FILE *fp) {
         amount_of_files_found++;
         break;
       }
-      // Grab the next word with a space token
       buf = strtok(NULL, " ");
     }
   }

@@ -7,8 +7,8 @@
 #include <time.h>
 #include <unistd.h>
 #include <dirent.h>
+#include <string.h>
 
-char * dirlist[];
 int dircount = 1;
 
 // To see if file is a regular file or a directory
@@ -34,6 +34,7 @@ int file_attributes(char *filename) {
 
 // Lists every file or directory within a given directory
 void list_directory(char *dirname) {
+  DIRECTORY_STRUCTURE *ds = &dir_struct;
   dircount--;
   DIR *dirp;
   struct dirent *dp;
@@ -59,7 +60,7 @@ void list_directory(char *dirname) {
 	// THIS DOESN'T WORK PLEASE FIX
 	else if (file_type == 2) {
 	  printf("\n%s\n", "This is a directory");
-	  dirlist[dircount] = strdup(dp->d_name);
+	  ds->dirlist[dircount] = strdup(dp->d_name);
 	  printf("The name of directory found is: %s\n", dp->d_name);
 	  printf("Saved at dircount location: %d\n", dircount);
  	  dircount++;
@@ -71,7 +72,7 @@ void list_directory(char *dirname) {
 	}
   }
   while (dircount != 0) {
-	list_directory(dirlist[dircount]);
+	list_directory(ds->dirlist[dircount]);
   }
   closedir(dirp);
 }

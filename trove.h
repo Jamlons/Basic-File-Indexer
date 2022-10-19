@@ -27,6 +27,12 @@ typedef struct{
     char * filelist[];
 }READ_FILE_STRUCTURE;
 
+typedef struct{
+    int dircounter;
+    char * dirlist[];
+}DIRECTORY_STRUCTURE;
+
 READ_FILE_STRUCTURE read_file_structure;
+DIRECTORY_STRUCTURE dir_struct;
 
 #endif

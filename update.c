@@ -14,7 +14,7 @@ void update_trove(int counter) {
   READ_FILE_STRUCTURE *rfs = &read_file_structure;
   // Remove the files needing to be updated
   remove_files(counter);
-  FILE *append_pointer = append_trove(file_name);
+  FILE *append_pointer = append_trove(rfs->file_name);
   // If appending pointer is empty
   if (append_pointer == NULL) {
     printf("Unable to open %s, please make sure it is correct\n", rfs->file_name);

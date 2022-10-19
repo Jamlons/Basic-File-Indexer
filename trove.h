@@ -23,8 +23,8 @@ typedef struct{
     char *file_name;
     char *word;
     int min_word_length;
-    char * filelist[];
     char *resolved_path;
+    char * filelist[];
 }READ_FILE_STRUCTURE;
 
 READ_FILE_STRUCTURE read_file_structure;

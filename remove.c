@@ -39,7 +39,7 @@ void remove_files(int counter) {
       // For every file in filelist
       for (int a = 0; a < counter; a++) {
         // If the file path and file list equal
-        if (!strcmp(file_path, filelist[a]) {
+        if (!strcmp(file_path, rfs->filelist[a]) {
           // Increase count by two
           // This will skip over both the file path and the words in said file
           count = count + 2;

@@ -8,6 +8,9 @@
 #include <unistd.h>
 #include <dirent.h>
 
+char * dirlist[];
+int dircount = 1;
+
 // To see if file is a regular file or a directory
 // Returns 1 if reg, returns 2 if dir
 int file_attributes(char *filename) {
@@ -31,6 +34,7 @@ int file_attributes(char *filename) {
 
 // Lists every file or directory within a given directory
 void list_directory(char *dirname) {
+  dircount--;
   DIR *dirp;
   struct dirent *dp;
   dirp = opendir(dirname);
@@ -55,25 +59,17 @@ void list_directory(char *dirname) {
 	// THIS DOESN'T WORK PLEASE FIX
 	else if (file_type == 2) {
 	  printf("\n%s\n", "This is a directory");
-	  switch (fork()) {
-		case -1:
-		  printf("fork failed\n");
-		  exit(EXIT_FAILURE);
-		  break;
-		//Child fork process
-		case 0:
-		  list_directory(dp->d_name);
-		  break;
-		//Parent(original) fork process
-		default:
-		  break;
-		}
-	  }
-	  //File is neither file nor directory
-	  else {
+	  dirlist[dircount] = strdup(dp->d_name);
+ 	  dircount++;
+	}
+	//File is neither file nor directory
+	else {
 	  printf("\n%s\n","File type not supported");
 	  exit(EXIT_FAILURE);
 	}
+  }
+  while (dircount != 0) {
+	list_directory(dirlist[dircount]);
   }
   closedir(dirp);
 }

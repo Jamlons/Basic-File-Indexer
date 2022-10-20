@@ -53,6 +53,8 @@ void compress_file() {
          dup2(thepipe[0], 0);   // Duplicate the reading descriptor and stdin
          close(thepipe[0]);     // Close the reading descriptor
          
+         // child may now read from its stdin (fd=0)
+         
          int check = execl("/usr/bin/gzip", "gzip", "-k", rfs->file_name, NULL);
          if (check == -1) {
             perror("/urs/bin/gzip");
@@ -85,11 +87,11 @@ int read_compressed() {
          break;
       // Child Process
       case 0:
-         close(thepipe[1]);     // Child will never read from pipe
-         dup2(thepipe[0], 0);   // Duplicate the writing descriptor and stdout
-         close(thepipe[0]);     // Close the writing descriptor
+         close(thepipe[0]);     // Child will never read from pipe
+         dup2(thepipe[1], 1);   // Duplicate the writing descriptor and stdout
+         close(thepipe[1]);     // Close the writing descriptor
          
-         // child may now read from its stdin (fd=0)
+         // child may now write from its stdin (fd=1)
          
          // Execute new program terminating the child process
          execl("/usr/bin/zcat", "zcat", rfs->file_name, NULL);
@@ -97,11 +99,11 @@ int read_compressed() {
          exit(EXIT_FAILURE);
          break;
       default:
-         close(thepipe[0]);     // Child will never read from pipe
-         dup2(thepipe[1], 1);   // Duplicate the writing descriptor and stdout
-         close(thepipe[1]);     // Close the writing descriptor
+         close(thepipe[1]);     // Child will never read from pipe
+         dup2(thepipe[0], 0);   // Duplicate the writing descriptor and stdout
+         close(thepipe[0]);     // Close the writing descriptor
          
-         // parent may now write to its stdout (fd=1)
+         // parent may now write to its stdin (fd=0)
          
          break;
    }

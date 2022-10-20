@@ -46,7 +46,7 @@ void build_trove(int counter) {
   }
   printf("\nCounter is %d\n", counter);
   for (int y = 0; y < counter; y++) {
-    printf("Finding file type\n");
+    printf("Finding file type of %s\n", rfs->filelist[y]);
     int file_type = file_attributes(rfs->filelist[y]);
     // file is directory
     if (file_type == 2) {

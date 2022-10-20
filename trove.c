@@ -108,6 +108,7 @@ int main(int argc, char *argv[]) {
         }
         else if (bflag || rflag || uflag) {
             // For each file given add to a list
+            printf("Adding %s to filelist\n", argv[optind]);
             rfs->filelist[counter] = strdup(argv[optind]);
             counter++;
         }

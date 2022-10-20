@@ -12,14 +12,17 @@
 
 // Adds the full file path to the given trove file
 void add_file_path(FILE *fp, char *file_name) {
+   printf("Adding file path...\n");
    // Grab the resolved full path name
    char *resolved_path = get_resolved_path(file_name);
    // Add file path to text file
-   fprintf(fp, "%s\n", resolved_path);  
+   fprintf(fp, "%s\n", resolved_path); 
+   printf("File path is %s\n", resolved_path); 
 }
 
 char *get_resolved_path(char *file_name) {
    // Create a buffer that is the max limit a path can be
+   printf("Grabbing file path...\n");
    char buf[PATH_MAX];
    // Grab the resolved full path name
    char *resolved_path = realpath(file_name, buf);
@@ -29,7 +32,7 @@ char *get_resolved_path(char *file_name) {
    }
    return resolved_path;
 }
-
+/*
 void compress_file() {
    // Global structure
    READ_FILE_STRUCTURE *rfs = &read_file_structure;
@@ -109,3 +112,4 @@ int read_compressed() {
    }
    return 1;
 }
+*/

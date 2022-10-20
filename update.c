@@ -55,8 +55,8 @@ void build_trove(int counter) {
     }
     // file is reg file
     else if (file_type == 1) {
-      printf("File is a reg file\n");
-      printf("\nCurrent file name: %s", rfs->filelist[y]);
+      printf("File is a regular file\n");
+      printf("Current file name: %s\n", rfs->filelist[y]);
       add_file_path(build_pointer, rfs->filelist[y]);
       read_file(build_pointer, rfs->filelist[y]);
     }

@@ -29,3 +29,36 @@ char *get_resolved_path(char *file_name) {
    }
    return resolved_path;
 }
+
+void compress_file() {
+   // Global structure
+   READ_FILE_STRUCTURE *rfs = &read_file_structure;
+   int thepipe[2];
+   char data[1024];
+   int datasize, nbytes;
+   if (pipe(thepipe) != 0) {
+      printf("Cannot create pipe!");
+      exit(EXIT_FAILURE);
+   }
+   switch (fork()) {
+      // Fork Failed
+      case -1:
+         printf("fork() failed - Exiting!");
+         exit(EXIT_FAILURE);
+         break;
+      // Child Process
+      case 0:
+         close(thepipe[1]);     // Child will never write to pipe
+         dup2(thepipe[0], 0);   // duplicate the file stream
+         close(thepipe[0]);     // Close the file stream
+         
+         int check = execl("/usr/bin/gzip", "gzip", rfs->file_name, NULL);
+         if (check == -1) {
+            perror("/urs/bin/gzip");
+            exit(EXIT_FAILURE);
+         }
+         break;
+      default:
+         break;
+   }
+}

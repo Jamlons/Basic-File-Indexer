@@ -4,10 +4,9 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
-#include <ctype.h>
 
 typedef struct {
-  int wordcounter;
+  int temp;
   char * wordlist[];
 }WORD_STRUCTURE;
 
@@ -15,16 +14,16 @@ WORD_STRUCTURE ws;
 
 // Function for adding all words of a given file of a given length to a given file
 void read_file(FILE *build_pointer, char *filename) {
-  printf("Grabbing words\n");
   // Global structure
-  //READ_FILE_STRUCTURE *rfs = &read_file_structure;
-  ws.wordcounter = 0;
+  READ_FILE_STRUCTURE *rfs = &read_file_structure;
+  int wordcounter = 0;
+  int flag = 0;
+  int counter = 0;
   char *buf;
   char *line = NULL;
   size_t linesize = 0;
   ssize_t linelen;
   FILE *fp = fopen(filename, "r");
-  int number_of_words = 0;
   // fopen failed
   if (fp == NULL) {
     perror(progname);
@@ -32,7 +31,7 @@ void read_file(FILE *build_pointer, char *filename) {
   }
   // While there are lines to get from text file
   while ((linelen = getline(&line, &linesize, fp)) != -1) {
-    int flag = 0;
+    flag = 0;
     // Make each non-alpha character a space
     for (char *temp = line; *temp; temp++) {
       if (!isalpha(*temp)) {
@@ -43,34 +42,37 @@ void read_file(FILE *build_pointer, char *filename) {
     buf = strtok(line, " ");
     // While there are words to get
     while (buf != NULL) {
-      number_of_words++;
-      //printf("Word is %s\n", buf);
-      //Make all words lowercase
+      counter++;
+      //printf("%s\n", buf);
+      // If the word isn't big enough skip
       int length = strlen(buf);
       char *lowercase = malloc(length + 1);
       lowercase[length] = 0;
       for (int i = 0; i < length; i++) {
         lowercase[i] = tolower(buf[i]);
       }
-      for (int y = 0; y < ws.wordcounter; y++) {
-        if (!strcmp(ws.wordlist[y], lowercase)) {
+      // Add word to given text file
+      for (int y = 0; y < wordcounter; y++) {
+        if ((!strcmp(ws.wordlist[y], lowercase)) && length >= rfs->min_word_length) {
           flag = 1;
+          break;
         }
       }
-      if (!flag) {
-        ws.wordlist[ws.wordcounter] = strdup(lowercase);
-        ws.wordcounter++;
+      if (flag == 0) {
         fprintf(build_pointer, "%s ", lowercase);
+        ws.wordlist[wordcounter] = strdup(lowercase);
+        wordcounter++;
         buf = strtok(NULL, " ");
       }
-      else
+      else {
         buf = strtok(NULL, " ");
+      }
     }
   }
+  printf("Words found: %d\n", counter);
+  printf("Words added to file: %d\n", wordcounter);
   // Add a new line to the end of the line
   fprintf(build_pointer, "\n");
-  printf("Words found: %d\n", number_of_words);
-  printf("Words saved: %d\n", ws.wordcounter);
   free(line);
   fclose(fp);
 }

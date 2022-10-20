@@ -7,10 +7,6 @@
 #include <unistd.h>
 #include <getopt.h>
 
-//  CITS2002 Project 2 2022
-//  Student1:   23135002   WILLOUGHBY   JOEL   70
-//  Student2:   22895688   MCNEIL   JARRAD   30
-
 char *progname;
 #define OPTLIST "f:brul:"
 
@@ -119,19 +115,15 @@ int main(int argc, char *argv[]) {
     }
         // If building a file
         if (bflag) {
-            printf("Building Trove...");
-            build_trove(counter);
-            //compress_file();
+            build_trove(counter); 
         }
         // If removing data from file
         else if (rflag) {
             remove_files(counter);
-            //compress_file();
         }
         // If updating a file
         else if (uflag) {
             update_trove(counter);
-            //compress_file();
         }
     return 1;
 }

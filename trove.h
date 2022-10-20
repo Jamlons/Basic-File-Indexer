@@ -16,7 +16,6 @@ extern void add_file_path(FILE *fp, char *file_name);
 extern void list_directory(char *dirname);
 extern int find_names(FILE *fp);
 extern char *get_resolved_path(char *file_name);
-extern void compress_file();
 
 extern char * progname;
 

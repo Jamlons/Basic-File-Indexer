@@ -115,15 +115,18 @@ int main(int argc, char *argv[]) {
     }
         // If building a file
         if (bflag) {
-            build_trove(counter); 
+            build_trove(counter);
+            compress_file();
         }
         // If removing data from file
         else if (rflag) {
             remove_files(counter);
+            compress_file();
         }
         // If updating a file
         else if (uflag) {
             update_trove(counter);
+            compress_file();
         }
     return 1;
 }

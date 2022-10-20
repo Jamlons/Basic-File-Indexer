@@ -9,7 +9,7 @@
 #include <dirent.h>
 #include <string.h>
 
-int dircount = 1;
+int dircounter = 1;
 
 // To see if file is a regular file or a directory
 // Returns 1 if reg, returns 2 if dir
@@ -33,46 +33,48 @@ int file_attributes(char *filename) {
 }
 
 // Lists every file or directory within a given directory
-void list_directory(char *dirname) {
+void list_directory(char *dirname, FILE *text_pointer) {
+  char fullpath[PATH_MAX];
+  printf("Directory name is: %s\n", dirname);
   DIRECTORY_STRUCTURE *ds = &dir_struct;
-  dircount--;
+  dircounter--;
   DIR *dirp;
   struct dirent *dp;
   dirp = opendir(dirname);
-  // If we failed to open the directory
   if (dirp == NULL) {
-	perror( progname );
-	exit(EXIT_FAILURE);
+    perror(progname);
+    exit(EXIT_FAILURE);
   }
-  // While directory stream is not null
+
   while((dp = readdir(dirp)) != NULL) {
-	// Grab the file type
-	int file_type = file_attributes(dp->d_name);
-	// If file is regular
-	if (file_type == 1) {
-	  // Add information to the given file
-	  FILE *fp = append_trove(dp->d_name);
-	  printf("\n%s\n", dp->d_name);
-	  add_file_path(fp, dp->d_name);
-	  read_file(fp, dp->d_name);
-	}
-	// If file is a directory
-	// THIS DOESN'T WORK PLEASE FIX
-	else if (file_type == 2) {
-	  printf("\n%s\n", "This is a directory");
-	  ds->dirlist[dircount] = strdup(dp->d_name);
-	  printf("The name of directory found is: %s\n", dp->d_name);
-	  printf("Saved at dircount location: %d\n", dircount);
- 	  dircount++;
-	}
-	//File is neither file nor directory
-	else {
-	  printf("\n%s\n","File type not supported");
-	  exit(EXIT_FAILURE);
-	}
+    printf("dp name is: %s\n", dp->d_name);
+    if (!strcmp(dp->d_name, ".") || !strcmp(dp->d_name, "..")) {
+     continue;
+    }
+    sprintf(fullpath, "%s/%s", dirname, dp->d_name);
+    printf("Full path is: %s\n", fullpath);
+    int file_type = file_attributes(fullpath);
+    if (file_type == 1) {
+      printf("File is a reg\n");
+      add_file_path(text_pointer, fullpath);
+      read_file(text_pointer, fullpath);
+    }
+    else if (file_type == 2) {
+      printf("File is a dir\n");
+      printf("Dir counter is: %d\n", dircounter);
+      ds->dirlist[dircounter] = strdup(fullpath);
+      dircounter++;
+      printf("Dir counter is: %d\n", dircounter);
+    }
+    else {
+      printf("Unknown\n");
+    }
   }
-  while (dircount != 0) {
-	list_directory(ds->dirlist[dircount]);
+  while (dircounter != -1) {
+    printf("Dir counter is: %d\n", dircounter);
+    printf("Full path is: %s\n", ds->dirlist[dircounter]);
+    dircounter--;
   }
   closedir(dirp);
+
 }

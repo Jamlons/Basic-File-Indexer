@@ -25,7 +25,7 @@ void update_trove(int counter) {
   for (int y = 0; y < counter; y++) {
     int file_type = file_attributes(rfs->filelist[y]);
     if (file_type == 2) {
-      list_directory(rfs->filelist[y]); 
+      list_directory(rfs->filelist[y], append_pointer); 
     }
     else if (file_type == 1) {
       add_file_path(append_pointer, rfs->filelist[y]);
@@ -51,7 +51,7 @@ void build_trove(int counter) {
     // file is directory
     if (file_type == 2) {
       printf("File is a directory\n");
-      list_directory(rfs->filelist[y]);
+      list_directory(rfs->filelist[y], build_pointer);
     }
     // file is reg file
     else if (file_type == 1) {

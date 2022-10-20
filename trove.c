@@ -7,6 +7,10 @@
 #include <unistd.h>
 #include <getopt.h>
 
+//  CITS2002 Project 2 2022
+//  Student1:   23135002   WILLOUGHBY   JOEL   70
+//  Student2:   STUDENT-NUMBER2   FAMILY-NAME   FIRST-NAME   CONTRIBUTION
+
 char *progname;
 #define OPTLIST "f:brul:"
 

@@ -89,6 +89,8 @@ int read_compressed() {
          dup2(thepipe[0], 0);   // Duplicate the writing descriptor and stdout
          close(thepipe[0]);     // Close the writing descriptor
          
+         // child may now read from its stdin (fd=0)
+         
          // Execute new program terminating the child process
          execl("/usr/bin/zcat", "zcat", rfs->file_name, NULL);
          perror("/urs/bin/zcat");
@@ -98,6 +100,9 @@ int read_compressed() {
          close(thepipe[0]);     // Child will never read from pipe
          dup2(thepipe[1], 1);   // Duplicate the writing descriptor and stdout
          close(thepipe[1]);     // Close the writing descriptor
+         
+         // parent may now write to its stdout (fd=1)
+         
          break;
    }
    return 1;

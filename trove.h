@@ -32,13 +32,7 @@ typedef struct{
     char * dirlist[];
 }DIRECTORY_STRUCTURE;
 
-typedef struct{
-    int wordcounter;
-    char * wordlist[];
-}WORD_STRUCTURE;
-
 READ_FILE_STRUCTURE read_file_structure;
 DIRECTORY_STRUCTURE dir_struct;
-WORD_STRUCTURE word_struct;
 
 #endif

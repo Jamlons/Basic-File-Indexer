@@ -50,10 +50,10 @@ void compress_file() {
       // Child Process
       case 0:
          close(thepipe[1]);     // Child will never write to pipe
-         dup2(thepipe[0], 0);   // duplicate the file stream
-         close(thepipe[0]);     // Close the file stream
+         dup2(thepipe[0], 0);   // Duplicate the reading descriptor and stdin
+         close(thepipe[0]);     // Close the reading descriptor
          
-         int check = execl("/usr/bin/gzip", "gzip", rfs->file_name, NULL);
+         int check = execl("/usr/bin/gzip", "gzip", "-k", rfs->file_name, NULL);
          if (check == -1) {
             perror("/urs/bin/gzip");
             exit(EXIT_FAILURE);
@@ -63,4 +63,42 @@ void compress_file() {
       default:
          break;
    }
+}
+
+//Returns file descriptor 
+int read_compressed() {
+   // Global structure
+   READ_FILE_STRUCTURE *rfs = &read_file_structure;
+   printf("Reading File...\n");
+   int thepipe[2];
+   char data[1024];
+   int datasize, nbytes;
+   if (pipe(thepipe) != 0) {
+      printf("Cannot create pipe!");
+      exit(EXIT_FAILURE);
+   }
+   switch (fork()) {
+      // Fork Failed
+      case -1:
+         printf("fork() failed - Exiting!");
+         exit(EXIT_FAILURE);
+         break;
+      // Child Process
+      case 0:
+         close(thepipe[1]);     // Child will never read from pipe
+         dup2(thepipe[0], 0);   // Duplicate the writing descriptor and stdout
+         close(thepipe[0]);     // Close the writing descriptor
+         
+         // Execute new program terminating the child process
+         execl("/usr/bin/zcat", "zcat", rfs->file_name, NULL);
+         perror("/urs/bin/zcat");
+         exit(EXIT_FAILURE);
+         break;
+      default:
+         close(thepipe[0]);     // Child will never read from pipe
+         dup2(thepipe[1], 1);   // Duplicate the writing descriptor and stdout
+         close(thepipe[1]);     // Close the writing descriptor
+         break;
+   }
+   return 1;
 }

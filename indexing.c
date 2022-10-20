@@ -33,6 +33,7 @@ char *get_resolved_path(char *file_name) {
 void compress_file() {
    // Global structure
    READ_FILE_STRUCTURE *rfs = &read_file_structure;
+   printf("Compressing File...\n");
    int thepipe[2];
    char data[1024];
    int datasize, nbytes;
@@ -57,6 +58,7 @@ void compress_file() {
             perror("/urs/bin/gzip");
             exit(EXIT_FAILURE);
          }
+         printf("File compressed");
          break;
       default:
          break;

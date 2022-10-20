@@ -9,7 +9,7 @@
 #include <dirent.h>
 #include <string.h>
 
-int dircounter = 1;
+int dircounter = 0;
 
 // To see if file is a regular file or a directory
 // Returns 1 if reg, returns 2 if dir
@@ -37,7 +37,6 @@ void list_directory(char *dirname, FILE *text_pointer) {
   char fullpath[PATH_MAX];
   printf("Directory name is: %s\n", dirname);
   DIRECTORY_STRUCTURE *ds = &dir_struct;
-  dircounter--;
   DIR *dirp;
   struct dirent *dp;
   dirp = opendir(dirname);
@@ -46,25 +45,24 @@ void list_directory(char *dirname, FILE *text_pointer) {
     exit(EXIT_FAILURE);
   }
 
+  printf("Dir counter is: %d\n", dircounter);
   while((dp = readdir(dirp)) != NULL) {
-    printf("dp name is: %s\n", dp->d_name);
     if (!strcmp(dp->d_name, ".") || !strcmp(dp->d_name, "..")) {
      continue;
     }
+    printf("Current file/dir looking at is: %s\n", dp->d_name);
     sprintf(fullpath, "%s/%s", dirname, dp->d_name);
-    printf("Full path is: %s\n", fullpath);
     int file_type = file_attributes(fullpath);
     if (file_type == 1) {
-      printf("File is a reg\n");
+      printf("File is reg\n");
       add_file_path(text_pointer, fullpath);
       read_file(text_pointer, fullpath);
     }
     else if (file_type == 2) {
-      printf("File is a dir\n");
-      printf("Dir counter is: %d\n", dircounter);
+      printf("Dir path stored at counter: %d\n", dircounter);
       ds->dirlist[dircounter] = strdup(fullpath);
       dircounter++;
-      printf("Dir counter is: %d\n", dircounter);
+      printf("Dir counter now is: %d\n", dircounter);
     }
     else {
       printf("Unknown\n");
@@ -72,7 +70,10 @@ void list_directory(char *dirname, FILE *text_pointer) {
   }
   while (dircounter >= 0) {
     dircounter--;
-    printf("Dir counter is: %d\n", dircounter);
+    if (dircounter < 0) {
+      break;
+    }
+    printf("Dir counter to access dir path is: %d\n", dircounter);
     printf("Full path is: %s\n", ds->dirlist[dircounter]);
     printf("\nCalling Function Again!\n");
     list_directory(ds->dirlist[dircounter], text_pointer);

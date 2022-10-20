@@ -70,10 +70,12 @@ void list_directory(char *dirname, FILE *text_pointer) {
       printf("Unknown\n");
     }
   }
-  while (dircounter != -1) {
+  while (dircounter >= 0) {
+    dircounter--;
     printf("Dir counter is: %d\n", dircounter);
     printf("Full path is: %s\n", ds->dirlist[dircounter]);
-    dircounter--;
+    printf("\nCalling Function Again!\n");
+    list_directory(ds->dirlist[dircounter], text_pointer);
   }
   closedir(dirp);
 

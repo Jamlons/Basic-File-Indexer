@@ -29,3 +29,86 @@ char *get_resolved_path(char *file_name) {
    }
    return resolved_path;
 }
+
+void compress_file() {
+   // Global structure
+   READ_FILE_STRUCTURE *rfs = &read_file_structure;
+   printf("Compressing File...\n");
+   int thepipe[2];
+   if (pipe(thepipe) != 0) {
+      printf("Cannot create pipe!");
+      exit(EXIT_FAILURE);
+   }
+   switch (fork()) {
+      // Fork Failed
+      case -1:
+         printf("fork() failed - Exiting!");
+         exit(EXIT_FAILURE);
+         break;
+      // Child Process
+      case 0:
+         close(thepipe[1]);     // Child will never write to pipe
+         dup2(thepipe[0], 0);   // Duplicate the reading descriptor and stdin
+         close(thepipe[0]);     // Close the reading descriptor
+         
+         // child may now read from its stdin (fd=0)
+         
+         int check = execl("/usr/bin/gzip", "gzip", "-k", rfs->file_name, NULL);
+         if (check == -1) {
+            perror("/urs/bin/gzip");
+            exit(EXIT_FAILURE);
+         }
+         printf("File compressed");
+         break;
+      default:
+         break;
+   }
+}
+
+void read_compressed() {
+   // Global structure
+   READ_FILE_STRUCTURE *rfs = &read_file_structure;
+   printf("Reading File...\n");
+   int thepipe[2];
+   //char data[1024];
+   //int datasize, nbytes;
+   if (pipe(thepipe) != 0) {
+      printf("Cannot create pipe!");
+      exit(EXIT_FAILURE);
+   }
+   switch (fork()) {
+      // Fork Failed
+      case -1:
+         printf("fork() failed - Exiting!");
+         exit(EXIT_FAILURE);
+         break;
+      // Child Process
+      case 0:
+         close(thepipe[0]);     // Child will never read from pipe
+         dup2(thepipe[1], 1);   // Duplicate the writing descriptor and stdout
+         close(thepipe[1]);     // Close the writing descriptor
+         
+         // child may now write from its stdin (fd=1)
+         
+         // Execute new program terminating the child process
+         char full_path[PATH_MAX];
+         sprintf(full_path, "%s.%s", rfs->file_name, "gz");
+         
+         execl("/usr/bin/zcat", "zcat", full_path, NULL);
+         perror("/urs/bin/zcat");
+         exit(EXIT_FAILURE);
+         break;
+      default:
+         close(thepipe[1]);     // Child will never read from pipe
+         dup2(thepipe[0], 0);   // Duplicate the writing descriptor and stdout
+         close(thepipe[0]);     // Close the writing descriptor
+         
+         // parent may now write to its stdin (fd=0)
+         char test[6000];
+         while (fgets(test, 6000, stdin)) {
+            printf("%s", test);
+         }
+         
+         break;
+   }
+}

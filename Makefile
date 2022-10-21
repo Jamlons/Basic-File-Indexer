@@ -1,5 +1,4 @@
 # A Makefile for our project
-
 C11 = cc -std=c11
 CFLAGS = -Wall -pedantic -Werror
 

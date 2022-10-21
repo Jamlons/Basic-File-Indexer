@@ -1,14 +1,9 @@
 //FUNCTION FOR INDEXING FILE INFO
 #include "trove.h"
-#include  <stdio.h>
-#include  <limits.h>
-#include  <stdlib.h>
-#include  <sys/types.h>
-#include  <sys/stat.h>
-#include  <sys/param.h>
-#include  <dirent.h>
-#include  <unistd.h>
-// Not every library is needed - please remove
+#include <stdio.h>
+#include <limits.h>
+#include <stdlib.h>
+#include <unistd.h>
 
 // Adds the full file path to the given trove file
 void add_file_path(FILE *fp, char *file_name) {
@@ -17,7 +12,7 @@ void add_file_path(FILE *fp, char *file_name) {
    // Add file path to text file
    fprintf(fp, "%s\n", resolved_path);  
 }
-
+// Returns the full resolved file path
 char *get_resolved_path(char *file_name) {
    // Create a buffer that is the max limit a path can be
    char buf[PATH_MAX];
@@ -29,12 +24,12 @@ char *get_resolved_path(char *file_name) {
    }
    return resolved_path;
 }
-
+// Compresses TroveFile
 void compress_file() {
    // Global structure
    READ_FILE_STRUCTURE *rfs = &read_file_structure;
-   printf("Compressing File...\n");
    int thepipe[2];
+   // Create a pipe
    if (pipe(thepipe) != 0) {
       printf("Cannot create pipe!");
       exit(EXIT_FAILURE);
@@ -52,26 +47,23 @@ void compress_file() {
          close(thepipe[0]);     // Close the reading descriptor
          
          // child may now read from its stdin (fd=0)
-         
-         int check = execl("/usr/bin/gzip", "gzip", "-k", rfs->file_name, NULL);
-         if (check == -1) {
-            perror("/urs/bin/gzip");
-            exit(EXIT_FAILURE);
-         }
-         printf("File compressed");
+         // Call the gzip utility on the filename
+         execl("/usr/bin/gzip", "gzip", "-f", rfs->file_name, NULL);
+         perror("/urs/bin/gzip");
+         exit(EXIT_FAILURE);
+         printf("File compressed\n");
          break;
+      // As a parent don't do anything
       default:
          break;
    }
 }
-
+// Uncompresses TroveFile
+// Allows for the uncompresssed stream to be read from stdin
 void read_compressed() {
    // Global structure
    READ_FILE_STRUCTURE *rfs = &read_file_structure;
-   printf("Reading File...\n");
    int thepipe[2];
-   //char data[1024];
-   //int datasize, nbytes;
    if (pipe(thepipe) != 0) {
       printf("Cannot create pipe!");
       exit(EXIT_FAILURE);
@@ -89,28 +81,22 @@ void read_compressed() {
          close(thepipe[1]);     // Close the writing descriptor
          
          // child may now write from its stdin (fd=1)
-         
          // Execute new program terminating the child process
          char full_path[PATH_MAX];
+         // Grab full path name while adding .gz at the end for the zcat function
          sprintf(full_path, "%s.%s", rfs->file_name, "gz");
-         
+         // Call zcat function
          execl("/usr/bin/zcat", "zcat", full_path, NULL);
          perror("/urs/bin/zcat");
          exit(EXIT_FAILURE);
          break;
+      // Parent Process
       default:
          close(thepipe[1]);     // Child will never read from pipe
          dup2(thepipe[0], 0);   // Duplicate the writing descriptor and stdout
          close(thepipe[0]);     // Close the writing descriptor
          
          // parent may now write to its stdin (fd=0)
-         /*
-         char test[6000];
-         while (fgets(test, 6000, stdin)) {
-            printf("%s", test);
-         }
-         */
-         
          break;
    }
 }

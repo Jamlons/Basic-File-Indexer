@@ -1,19 +1,21 @@
 //FUNCTION TO REMOVE FILE INFO FROM GIVEN TROVEFILE
-// WON'T WORK SEE findnames.c to see how its done
 #include "trove.h"
 #include "file_edits.h"
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <limits.h>
 
 //To remove lines from files - must duplicate the text file without said lines in it
 void remove_files(int counter) {
+  // Global structure
   READ_FILE_STRUCTURE *rfs = &read_file_structure;
+  // Random file name
   char *temp_file_name = "as239gnma9yhq9109k23.txt";
   FILE *new_file = create_trove(temp_file_name);
+  // Reading the compressed file
   read_compressed();
   char full_path[PATH_MAX];
+  // Grab full path - adding .gz at the end
   sprintf(full_path, "%s.%s", rfs->file_name, "gz");
   // If file stream failed
   if (new_file == NULL) {
@@ -30,27 +32,20 @@ void remove_files(int counter) {
   // While grabbing each line of the text file
   while ((linelen = getline(&line, &linesize, stdin)) != -1) {
     int flag = 0;
-    printf("Grabbing lines...\n");
-    printf("Count is: %d\n", count);
     // If line is a file path (odd number)
     if ((count % 2) != 0) {
       // Save file path to a temp location
       file_path = strdup(line);
       // Make '\n' character null
       file_path[strlen(file_path) - 1] = 0;
-      printf("File path is: %s\n", file_path);
       // For every file in filelist
       for (int a = 0; a < counter; a++) {
         file_list_path = get_resolved_path(rfs->filelist[a]);
-        printf("Current file given is: %s\n", file_list_path);
         // If the file path and file list equal
         if (!strcmp(file_path, file_list_path)) {
-          printf("Files match! Removing...\n");
-          printf("File name is %s", line);
           // Increase count by two
           // This will skip over both the file path and the words in said file
           linelen = getline(&line, &linesize, stdin);
-          printf("File contents is %s", line);
           // Why do we need this??? I can't figure out why it is needed for the remove function to work.
           flag = 1;
           continue;
@@ -59,7 +54,6 @@ void remove_files(int counter) {
       // If the file path is not to be removed add it to the new file
       if (flag)
         continue;
-      printf("Adding %s to the file", file_path);
       fprintf(new_file, "%s\n", file_path);
       count++;
       continue;

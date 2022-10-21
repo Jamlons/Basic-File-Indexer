@@ -4,7 +4,6 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
 #include <getopt.h>
 
 char *progname;
@@ -95,23 +94,19 @@ int main(int argc, char *argv[]) {
                 // Add word to global structure
                 rfs->word = strdup(argv[optind]);
                 // Create pointer in read+ mode
-                FILE *find_pointer = read_trove(rfs->file_name);
-                if (find_pointer == NULL) {
-                    exit(EXIT_FAILURE);
-                }
                 // Find the words within given file
-                file_found = find_names(find_pointer);
-                fclose(find_pointer);
+                file_found = find_names();
             }
             if (file_found) {
                 exit(EXIT_SUCCESS);   
             }
-            else
+            else {
+                printf("No files found!\n");
                 exit(EXIT_FAILURE);
+            }
         }
         else if (bflag || rflag || uflag) {
             // For each file given add to a list
-            printf("Adding %s to filelist\n", argv[optind]);
             rfs->filelist[counter] = strdup(argv[optind]);
             counter++;
         }

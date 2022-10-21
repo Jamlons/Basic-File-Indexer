@@ -5,9 +5,10 @@
 
 // Find the word given by user within the File stream provided
 // Returns 1 if a name is found, otherwise returns 0.
-int find_names(FILE *fp) {
+int find_names() {
   // Global Structure
   READ_FILE_STRUCTURE *rfs = &read_file_structure;
+  // Read the compressed file
   read_compressed();
   int amount_of_files_found = 0;
   char *buf;
@@ -40,10 +41,10 @@ int find_names(FILE *fp) {
         amount_of_files_found++;
         break;
       }
+      // Find next word
       buf = strtok(NULL, " ");
     }
   }
   // Return 1 if file is found
   return amount_of_files_found;
-  fclose(fp);
 }

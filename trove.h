@@ -14,7 +14,7 @@ extern FILE *append_trove(char *filename);
 extern FILE *read_trove(char *filename);
 extern void add_file_path(FILE *fp, char *file_name);
 extern void list_directory(char *dirname, FILE *fp);
-extern int find_names(FILE *fp);
+extern int find_names();
 extern char *get_resolved_path(char *file_name);
 extern void compress_file();
 extern void read_compressed();

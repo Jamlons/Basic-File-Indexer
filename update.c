@@ -2,13 +2,9 @@
 // Most likely will not work, see findnames.c to see how it is done
 #include "trove.h"
 #include "file_edits.h"
-#include <stdio.h>
-#include <stdbool.h>
 #include <stdlib.h>
-#include <string.h>
 #include <unistd.h>
-#include <getopt.h>
-
+// Function to add filelist info the end of trovefile
 void update_trove(int counter) {
   // Global Structure
   READ_FILE_STRUCTURE *rfs = &read_file_structure;
@@ -34,9 +30,8 @@ void update_trove(int counter) {
   }
   fclose(append_pointer);
 }
-
+// Function to build the trovefile
 void build_trove(int counter) {
-  printf("Building the trove now...\n");
   READ_FILE_STRUCTURE *rfs = &read_file_structure;
   FILE *build_pointer = create_trove(rfs->file_name);
   if (build_pointer == NULL) {
@@ -44,19 +39,14 @@ void build_trove(int counter) {
     perror(progname);
     exit(EXIT_FAILURE);
   }
-  printf("\nCounter is %d\n", counter);
   for (int y = 0; y < counter; y++) {
-    printf("Finding file type of %s\n", rfs->filelist[y]);
     int file_type = file_attributes(rfs->filelist[y]);
     // file is directory
     if (file_type == 2) {
-      printf("File is a directory\n");
       list_directory(rfs->filelist[y], build_pointer);
     }
     // file is reg file
     else if (file_type == 1) {
-      printf("File is a regular file\n");
-      printf("Current file name: %s\n", rfs->filelist[y]);
       add_file_path(build_pointer, rfs->filelist[y]);
       read_file(build_pointer, rfs->filelist[y]);
     }

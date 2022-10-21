@@ -1,11 +1,7 @@
 //FUNCTIONS FOR EDITING / READING / WRITING TO TROVE FILES
 #include "trove.h"
-#include <stdio.h>
-#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
-#include <getopt.h>
 
 // Function for returning a File Stream Pointer in Write+ mode for given filename
 FILE *create_trove(char *trovename) {

@@ -2,10 +2,7 @@
 #include "trove.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/types.h>
 #include <sys/stat.h>
-#include <time.h>
-#include <unistd.h>
 #include <dirent.h>
 #include <string.h>
 
@@ -35,7 +32,6 @@ int file_attributes(char *filename) {
 // Lists every file or directory within a given directory
 void list_directory(char *dirname, FILE *text_pointer) {
   char fullpath[PATH_MAX];
-  printf("Directory name is: %s\n", dirname);
   DIRECTORY_STRUCTURE *ds = &dir_struct;
   DIR *dirp;
   struct dirent *dp;
@@ -45,37 +41,37 @@ void list_directory(char *dirname, FILE *text_pointer) {
     exit(EXIT_FAILURE);
   }
 
-  printf("Dir counter is: %d\n", dircounter);
   while((dp = readdir(dirp)) != NULL) {
+    // If the directory is linux storage for current directory or parent directory - skip
     if (!strcmp(dp->d_name, ".") || !strcmp(dp->d_name, "..")) {
      continue;
     }
-    printf("Current file/dir looking at is: %s\n", dp->d_name);
+    // Grab the full path name of the file
     sprintf(fullpath, "%s/%s", dirname, dp->d_name);
     int file_type = file_attributes(fullpath);
+    // If current file we are looking at is a regular file
+    // Add it to the trovefile
     if (file_type == 1) {
-      printf("File is reg\n");
       add_file_path(text_pointer, fullpath);
       read_file(text_pointer, fullpath);
     }
+    // If current file we are looking at is a directory
+    // Add it to dirlist
     else if (file_type == 2) {
-      printf("Dir path stored at counter: %d\n", dircounter);
       ds->dirlist[dircounter] = strdup(fullpath);
       dircounter++;
-      printf("Dir counter now is: %d\n", dircounter);
     }
     else {
       printf("Unknown\n");
     }
   }
+  // While we still have directories not explored yet
   while (dircounter >= 0) {
     dircounter--;
     if (dircounter < 0) {
       break;
     }
-    printf("Dir counter to access dir path is: %d\n", dircounter);
-    printf("Full path is: %s\n", ds->dirlist[dircounter]);
-    printf("\nCalling Function Again!\n");
+    // Recursively call list_directory again
     list_directory(ds->dirlist[dircounter], text_pointer);
   }
   closedir(dirp);

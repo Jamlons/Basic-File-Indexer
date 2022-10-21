@@ -1,2 +1,0 @@
-/home/jamlons/Documents/CITS2002 Second Project/CITS2002/CITS2002_project_2/trove.c
-include trove h cits project student willoughby joel char progname define optlist f brul to return information regarding the usage of this program void if flag printf nyou have entered exit main function int global structure read file default rfs bool bflag false opterr while opt getopt argc argv accept else rflag true uflag unknown argument for each left over command temp add word create pointer in find fclose counter optind build compress remove files update 

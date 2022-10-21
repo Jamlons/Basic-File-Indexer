@@ -2,7 +2,7 @@
 #include <stdio.h>
 #define TROVE_H
 
-#define BUFSIZE = 100000;
+#define BUFSIZE 100000
 extern char *default_file_name;
 extern int EXIT_FAILURE;
 extern int EXIT_SUCCESS;

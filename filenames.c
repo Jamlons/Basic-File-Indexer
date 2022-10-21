@@ -44,4 +44,5 @@ int find_names(FILE *fp) {
   }
   // Return 1 if file is found
   return amount_of_files_found;
+  fclose(fp);
 }

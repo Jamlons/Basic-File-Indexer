@@ -10,6 +10,9 @@
 char *progname;
 #define OPTLIST "f:brul:"
 
+//  CITS2002 Project 2 2022
+//  Student1:   23135002   WILLOUGHBY   JOEL   65
+//  Student2:   22895688   MCNEIL   JARRAD   35
 // To return information regarding the usage of this program
 void usage(bool flag) {
     if (flag) {

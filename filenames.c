@@ -8,6 +8,7 @@
 int find_names(FILE *fp) {
   // Global Structure
   READ_FILE_STRUCTURE *rfs = &read_file_structure;
+  read_compressed();
   int amount_of_files_found = 0;
   char *buf;
   char *line = NULL;
@@ -17,7 +18,7 @@ int find_names(FILE *fp) {
   // Count for what line we are on
   int count = 1;
   // While grabbing each line from the file
-  while ((linelen = getline(&line, &linesize, fp)) != -1) {
+  while ((linelen = getline(&line, &linesize, stdin)) != -1) {
     // If line is a filepath line (odd number)
     if ((count % 2) != 0) {
       // Copy the line to file_path and continue

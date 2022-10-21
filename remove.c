@@ -5,22 +5,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <limits.h>
 
 //To remove lines from files - must duplicate the text file without said lines in it
 void remove_files(int counter) {
   READ_FILE_STRUCTURE *rfs = &read_file_structure;
   char *temp_file_name = "as239gnma9yhq9109k23.txt";
   FILE *new_file = create_trove(temp_file_name);
-  FILE *old_file = read_trove(rfs->file_name);
+  read_compressed();
+  char full_path[PATH_MAX];
+  sprintf(full_path, "%s.%s", rfs->file_name, "gz");
   // If file stream failed
   if (new_file == NULL) {
     printf("Unable to open %s, weird...", temp_file_name);
-    perror(progname);
-    exit(EXIT_FAILURE);
-  }
-  // If file stream failed
-  if (old_file == NULL) {
-    printf("Unable to open %s, please make sure it is correct", rfs->file_name);
     perror(progname);
     exit(EXIT_FAILURE);
   }
@@ -31,7 +28,7 @@ void remove_files(int counter) {
   ssize_t linelen;
   int count = 1;
   // While grabbing each line of the text file
-  while ((linelen = getline(&line, &linesize, old_file)) != -1) {
+  while ((linelen = getline(&line, &linesize, stdin)) != -1) {
     int flag = 0;
     printf("Grabbing lines...\n");
     printf("Count is: %d\n", count);
@@ -52,7 +49,7 @@ void remove_files(int counter) {
           printf("File name is %s", line);
           // Increase count by two
           // This will skip over both the file path and the words in said file
-          linelen = getline(&line, &linesize, old_file);
+          linelen = getline(&line, &linesize, stdin);
           printf("File contents is %s", line);
           // Why do we need this??? I can't figure out why it is needed for the remove function to work.
           flag = 1;
@@ -75,10 +72,10 @@ void remove_files(int counter) {
   }
   // Remove old file
   remove(rfs->file_name);
-  printf("Removing old file...");
+  remove(full_path);
+  printf("Removing old file...\n");
   // Rename new file as old file name
   rename(temp_file_name, rfs->file_name);
   fclose(new_file);
-  fclose(old_file);
   free(line);
 }

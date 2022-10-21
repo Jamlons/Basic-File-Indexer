@@ -104,10 +104,12 @@ void read_compressed() {
          close(thepipe[0]);     // Close the writing descriptor
          
          // parent may now write to its stdin (fd=0)
+         /*
          char test[6000];
          while (fgets(test, 6000, stdin)) {
             printf("%s", test);
          }
+         */
          
          break;
    }

@@ -34,8 +34,17 @@ int find_names() {
     while (buf != NULL) {
       // Copy the word to a temp memory location, needs to work for strcmp to work
       char *temp = strdup(rfs->word);
+      int length = strlen(temp);
+      // Create a lowercase string for comparing
+      char *lowercase = malloc(length + 1);
+      // Add null character to terminate
+      lowercase[length] = 0;
+      // Make every character lowercase
+      for (int i = 0; i < length; i++) {
+        lowercase[i] = tolower(temp[i]);
+      }
       // If the parsed word does equal the word we are searching for
-      if(!strcmp(temp, buf)) {
+      if(!strcmp(lowercase, buf)) {
         // Print file path out and break out of the entire loop
         printf("%s", file_path);
         amount_of_files_found++;
@@ -46,5 +55,7 @@ int find_names() {
     }
   }
   // Return 1 if file is found
+  // Free all memory
+  free(lowercase);
   return amount_of_files_found;
 }

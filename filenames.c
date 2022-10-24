@@ -2,6 +2,8 @@
 #include "trove.h"
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
 
 // Find the word given by user within the File stream provided
 // Returns 1 if a name is found, otherwise returns 0.
@@ -33,15 +35,14 @@ int find_names() {
     // While parsing through each word.
     while (buf != NULL) {
       // Copy the word to a temp memory location, needs to work for strcmp to work
-      char *temp = strdup(rfs->word);
-      int length = strlen(temp);
+      int length = strlen(rfs->word);
       // Create a lowercase string for comparing
       char *lowercase = malloc(length + 1);
       // Add null character to terminate
       lowercase[length] = 0;
       // Make every character lowercase
       for (int i = 0; i < length; i++) {
-        lowercase[i] = tolower(temp[i]);
+        lowercase[i] = tolower(rfs->word[i]);
       }
       // If the parsed word does equal the word we are searching for
       if(!strcmp(lowercase, buf)) {
@@ -56,6 +57,6 @@ int find_names() {
   }
   // Return 1 if file is found
   // Free all memory
-  free(lowercase);
+  free(line);
   return amount_of_files_found;
 }

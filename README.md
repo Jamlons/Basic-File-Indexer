@@ -27,9 +27,9 @@ An index file can then be searched by invoking ./trove [-f filename] word
 
 ##### An example of the code follows:
 
-`./trove -l 5 -b README.txt trove.c`
+`./trove -l 5 -b README.md trove.c`
 
-This will store all alphanumeric found strings inside both README.txt and trove.c that are atleast 5 characters long.
+This will store all alphanumeric found strings inside both README.md and trove.c that are atleast 5 characters long.
 
 `./trove ubuntu`
 

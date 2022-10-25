@@ -3,6 +3,9 @@
 
 This program allows you to create an index file, this file stores the readable strings from a set of files - filelist. Once the index file is created, it then allows you to search for a word within that index file returning all file paths that include said word.
 
+This program includes a Makefile, allowing for easy cmd compiling. To use all you have to do is enter 'make' in the cmd line.
+- Make sure you have make installed on your Ubuntu machine
+
 An index file can be created or updated by invoking ./trove [-f filename] [-l length] [-b | -r | -u] [filelist] on the cmd line.
 
 -f being an optional filename you want the index file to be called (default name is /tmp/trove).

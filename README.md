@@ -13,7 +13,7 @@ An index file can then be searched by invoking ./trove [-f filename] word
 -f being the optional filename to search inside of (default is /tmp/trove).
 
 An example of the code follows:
-' ./trove -l 5 -b README.txt trove.c '
+`./trove -l 5 -b README.txt trove.c`
 This will store all alphanumeric strings inside both README.txt and trove.c that are atleast 5 characters long.
 ' ./trove ubuntu '
 This will return the filepath of README.txt within the cmd line, as it includes the string 'ubuntu'.

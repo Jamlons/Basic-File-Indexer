@@ -6,6 +6,7 @@ This program allows you to create an index file, this file stores the readable s
 This program includes a Makefile, allowing for easy cmd compiling. To use all you have to do is enter 'make' in the cmd line.
 - Make sure you have make installed on your Ubuntu machine
 
+
 An index file can be created or updated by invoking ./trove [-f filename] [-l length] [-b | -r | -u] [filelist] on the cmd line.
 
 -f being an optional filename you want the index file to be called (default name is /tmp/trove).
@@ -18,11 +19,13 @@ An index file can be created or updated by invoking ./trove [-f filename] [-l le
 
 -u updates all files included within filelist for the given index file, removing the old search info if required.
 
+
 An index file can then be searched by invoking ./trove [-f filename] word
 
 -f being the optional filename to search inside of (default is /tmp/trove).
 
-An example of the code follows:
+
+##### An example of the code follows:
 
 `./trove -l 5 -b README.txt trove.c`
 

@@ -1,4 +1,4 @@
-# CITS2002 Project 2
+# Basic File Indexer
 #### Tested only on Ubuntu 18.04
 
 This program allows you to create an index file, this file stores the readable strings from a set of files - filelist. Once the index file is created, it then allows you to search for a word within that index file returning all file paths that include said word.

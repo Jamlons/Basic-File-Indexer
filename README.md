@@ -22,8 +22,8 @@ An example of the code follows:
 
 `./trove -l 5 -b README.txt trove.c`
 
-This will store all alphanumeric strings inside both README.txt and trove.c that are atleast 5 characters long.
+This will store all alphanumeric found strings inside both README.txt and trove.c that are atleast 5 characters long.
 
 `./trove ubuntu`
 
-This will return the filepath of README.txt within the cmd line, as it includes the string 'ubuntu'.
+This will return the full filepath of README.txt within the cmd line, as only it includes the string 'ubuntu'.

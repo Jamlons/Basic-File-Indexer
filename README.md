@@ -19,6 +19,7 @@ An index file can be created or updated by invoking ./trove [-f filename] [-l le
 -u updates all files included within filelist for the given index file, removing the old search info if required.
 
 An index file can then be searched by invoking ./trove [-f filename] word
+
 -f being the optional filename to search inside of (default is /tmp/trove).
 
 An example of the code follows:

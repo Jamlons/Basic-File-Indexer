@@ -1,4 +1,4 @@
-#CITS2002 Project 2
+CITS2002 Project 2
 This program allows you to create an 'index' file, this file stores the readable strings from a set of files - 'filelist'. Once the index file is created, it then allows you to search for a 'word' within that index file returning all file paths that include said word.
 
 An index file can be created or updated by invoking ./trove [-f filename] [-l length] [-b | -r | -u] [filelist] on the cmd line.
